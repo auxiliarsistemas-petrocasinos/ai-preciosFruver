@@ -10,6 +10,13 @@
 - Monolito modular: Python, FastAPI, Jinja2, HTMX, PostgreSQL y Docker Compose; evidencias persistentes, autenticación local, roles simples y HTTPS mediante proxy inverso.
 - Despliegue interno previsto en un servidor propio donde Docker funciona correctamente.
 
+## Bootstrap técnico implementado
+
+- Estructura inicial del monolito FastAPI, con rutas técnicas y de interfaz separadas, plantillas Jinja2 y una comprobación mínima mediante HTMX.
+- Configuración por variables de entorno, Docker Compose con PostgreSQL y volúmenes persistentes separados para base de datos y evidencias.
+- Ruta `GET /health` y pruebas/lint/formato mínimos para Python.
+- No se ha implementado aún ORM, acceso a datos ni migraciones: la estrategia correspondiente no está definida.
+
 ## Pendiente de validación humana
 
 - **Fórmula de landed cost:** debe ser validada, probablemente por un supervisor de bodega junto con compras.
@@ -30,4 +37,3 @@
 - Integración ERP.
 - Órdenes de compra y pagos.
 - Microservicios.
-

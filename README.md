@@ -33,4 +33,26 @@ El diseño y alcance del sistema se encuentra detallado en la carpeta [`docs/`](
 
 ## 📌 Estado Actual
 
-Fase de **definición de requerimientos y documentación fundacional**. No se ha iniciado la escritura de código. La arquitectura técnica base del MVP ya fue aceptada; las reglas operativas y los datos de partida que aún requieren validación humana se diferencian en la documentación enlazada.
+Existe un bootstrap técnico del monolito: FastAPI, Jinja2, HTMX, configuración por entorno, Docker Compose con PostgreSQL y almacenamiento persistente de evidencias. No incluye funcionalidades de negocio ni una capa de datos/migraciones, ya que su estrategia sigue pendiente de definición.
+
+## Ejecución local
+
+Requiere Python 3.13 o superior.
+
+1. Cree el archivo de entorno: `cp .env.example .env`.
+2. En `.env`, sustituya `POSTGRES_PASSWORD` y mantenga `DATABASE_URL` coherente con esos valores. Dentro de Docker Compose, el host de la URL debe ser `db`.
+3. Cree y active un entorno virtual, e instale las dependencias de desarrollo: `python3 -m venv .venv`, `source .venv/bin/activate` y `python -m pip install -e '.[dev]'`.
+4. Cargue las variables y ejecute la aplicación: `set -a; source .env; set +a; uvicorn app.main:app --reload`.
+5. Abra `http://127.0.0.1:8000/` y pulse **Comprobar HTMX**. El estado técnico está disponible en `http://127.0.0.1:8000/health`.
+
+Para ejecutar los servicios en contenedores, después de crear `.env` use `docker compose up --build`. La aplicación quedará disponible en `http://127.0.0.1:8000/`. Docker Compose conserva PostgreSQL y los archivos de evidencias en volúmenes con nombre. La configuración de proxy inverso/HTTPS y las políticas de respaldo o retención continúan pendientes.
+
+## Validaciones
+
+Tras instalar las dependencias de desarrollo:
+
+```bash
+ruff check .
+ruff format --check .
+pytest
+```
