@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Comprobación técnica · ai-preciosFruver{% endblock %}
+
+{% block content %}
+  <h1>ai-preciosFruver</h1>
+  <p>La base técnica de FastAPI y Jinja2 está disponible.</p>
+  <button
+    type="button"
+    hx-get="/ui/health-status"
+    hx-target="#health-status"
+    hx-swap="innerHTML"
+  >
+    Comprobar HTMX
+  </button>
+  <div id="health-status" aria-live="polite"></div>
+{% endblock %}
+
