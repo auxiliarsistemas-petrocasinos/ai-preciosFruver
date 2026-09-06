@@ -10,16 +10,17 @@ Este documento propone una secuencia de evolución en tres horizontes (**Now**, 
 
 - [ ] **Módulo de Solicitud de Insumos:**
   - Formulario web intuitivo para capturar parámetros de compra (producto, variedad, cantidad, unidad, fecha requerida, bodega destino).
-- [ ] **Base de Proveedores y Línea Base (*Benchmark*):**
-  - Registro interno de proveedores actuales y sus precios de referencia para medir el ahorro potencial frente a nuevas opciones.
-- [ ] **Motor de Prospección Inicial:**
-  - Búsqueda en las fuentes públicas y directorios que se aprueben para identificar nuevos distribuidores y mayoristas a nivel nacional.
-  - Extracción de precios públicos visibles cuando estén disponibles.
+- [ ] **Base de Proveedores, Fuentes y Línea Base (*Benchmark*):**
+  - Registro de distintas fuentes potenciales de proveedores, sin lista cerrada inicial.
+  - Construcción inicial del *benchmark* principalmente con compras históricas y cotizaciones existentes; su formato y mecanismo de obtención están pendientes de confirmar.
+- [ ] **Captura Manual Asistida y Verificable:**
+  - Registro por usuarios de alternativas, precios y condiciones encontradas en las fuentes aprobadas.
+  - Asociación de evidencias y su trazabilidad (PDF, correos, WhatsApp, capturas, URLs, páginas web y otros documentos).
 - [ ] **Tablero Comparativo y Decisión:**
   - Vista comparativa de opciones encontradas frente a la línea base actual.
   - Registro de la decisión tomada por el comprador.
 - [ ] **Control de Acceso Básico:**
-  - Autenticación simple y segregación inicial de permisos para el equipo de ~5 usuarios.
+  - Autenticación local y roles simples para TI administradora y el pequeño grupo operativo de compras; compras conserva la aprobación final.
 
 ---
 
@@ -61,8 +62,8 @@ Este documento propone una secuencia de evolución en tres horizontes (**Now**, 
 > [!NOTE]
 > Puntos a resolver antes de iniciar la implementación de cada fase:
 
-1. **Alcance del MVP en WhatsApp:** ¿Para la fase **Now** bastará con generar enlaces directos de contacto (`wa.me`) con el mensaje preformateado para envío con un clic, o se requiere automatización total desde el inicio?
-2. **Fuentes iniciales de datos para el MVP:** ¿Cuáles son los primeros 3 a 5 sitios o directorios clave que el proceso de prospección debería consultar en la fase **Now**?
+1. **Fuentes iniciales de datos para el MVP:** ¿Cuáles fuentes potenciales se registrarán y utilizarán primero en la captura manual asistida?
 3. **Métrica de éxito del MVP:** ¿Qué porcentaje o monto de ahorro frente a proveedores actuales validará el éxito del MVP para solicitar presupuesto posterior?
-4. **Cálculo y criterios de comparación:** ¿Cómo se calculará el costo puesto en bodega y qué criterios, además de este costo, determinarán el orden de las ofertas?
+4. **Cálculo y criterios de comparación:** La fórmula de costo puesto en bodega debe validarse con bodega y compras; también faltan los criterios de ordenamiento y las equivalencias/normalización.
 5. **Condiciones operativas:** ¿Qué fuentes están autorizadas y qué proveedor de correo, credenciales, consentimiento o revisión humana se requerirá antes de enviar contactos?
+6. **Datos e infraestructura:** ¿Cuál será el formato y mecanismo para obtener datos históricos, las especificaciones del servidor y la política de backup/retención?

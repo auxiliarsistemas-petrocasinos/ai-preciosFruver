@@ -12,7 +12,7 @@ La empresa requiere reducir los costos de adquisición de materias primas y prod
 
 ## 2. Usuarios y Perfiles
 
-- **Destinatarios:** Equipo interno de compras y abastecimiento de la empresa.
+- **Destinatarios:** Personal de TI para administración y un pequeño grupo del área de compras como usuarios operativos. Compras evalúa y aprueba finalmente las alternativas.
 - **Volumen inicial:** Aproximadamente 5 usuarios iniciales. La concurrencia esperada no se ha definido.
 - **Control de acceso:** Sistema con autenticación y roles diferenciados (por ejemplo: roles con capacidad de solicitar/cotizar y roles con capacidad de aprobar o administrar usuarios y proveedores).
 
@@ -33,22 +33,18 @@ Para iniciar un proceso de búsqueda y cotización, el sistema debe capturar com
 
 ## 4. Fuentes de Datos y Estrategia de Prospección
 
-Para localizar opciones de abastecimiento, el sistema contemplará:
+El sistema permitirá registrar distintas fuentes potenciales de proveedores, sin partir de una lista cerrada. En el MVP, la investigación y captura de información será manual, asistida y verificable; no incluirá *scraping* ni conectores automáticos.
 
-1. **Portales web públicos y marketplaces:** Sitios de comercio electrónico mayorista, listas públicas de precios y directorios comerciales agropecuarios.
-2. **Búsqueda abierta en internet:** Identificación de distribuidores, cooperativas, fincas y mayoristas a nivel nacional mediante motores de búsqueda.
-3. **Base de datos interna de proveedores existentes:** Utilizada como **línea base (*benchmark*)** para comparar alternativas. Puede considerarse para la compra solo si no se identifica una alternativa conveniente; no se define un umbral de precio único, pues la comparación considera el costo puesto en bodega y los criterios de selección pendientes.
+El **benchmark** inicial se construirá principalmente con compras históricas y cotizaciones existentes. El formato y el mecanismo para obtener estos datos siguen pendientes de confirmación.
 
 ---
 
 ## 5. Dinámica de Cotización
 
-1. **Extracción directa:** Cuando el proveedor publique precios fijos y condiciones de envío en su sitio web, el sistema extraerá la información directamente.
-2. **Generación de solicitudes de cotización (RFQ):** Cuando el precio no sea público o dependa del flete a bodega, el sistema deberá permitir preparar solicitudes de cotización para el proveedor. El envío y la recepción automatizados pertenecen al alcance previsto de fases posteriores; su forma técnica no está decidida.
-3. **Canales de comunicación previstos:**
-   - **Correo electrónico** (cotización formal detallada).
-   - **WhatsApp** (contacto directo, canal preferido por distribuidores agropecuarios).
-4. **Decisión humana:** El sistema recopila, filtra y ordena las alternativas encontradas; el usuario humano siempre conserva la decisión final de selección y compra.
+1. **Captura asistida y verificable:** El usuario registra las alternativas y sus evidencias; las fuentes pueden incluir sitios web, cotizaciones y comunicaciones con proveedores.
+2. **Solicitudes de cotización (RFQ):** La automatización completa de preparación, envío y recepción no pertenece al MVP.
+3. **Canales de comunicación:** Correo electrónico y WhatsApp son canales relevantes para evidencias y futuras interacciones, sin integración automática en el MVP.
+4. **Decisión humana:** Compras evalúa, aprueba y decide finalmente la alternativa y la compra.
 
 ---
 
@@ -59,14 +55,15 @@ Como capacidad objetivo del sistema, se debe persistir:
 - **Historial de precios:** Registro de variaciones temporales por producto, variedad, proveedor y fecha para detectar estacionalidad y tendencias.
 - **Ficha de proveedores:** Directorio comercial con contactos, canales de comunicación, calificación de servicio, confiabilidad y tiempos promedio de entrega.
 - **Trazabilidad y auditoría de decisiones de compra:** Historial completo de solicitudes (quién solicitó, qué opciones arrojó la prospección, qué respuestas se obtuvieron y cuál fue la opción seleccionada). La emisión de órdenes de compra, pagos o integración contable no forma parte del alcance definido hasta ahora.
+- **Evidencias:** Metadatos y trazabilidad de cotizaciones PDF, correos, conversaciones o capturas de WhatsApp, capturas de pantalla, URLs, páginas web y otros documentos relacionados.
 
 ---
 
 ## 7. Restricciones y Entorno Operativo
 
-- **Presupuesto inicial (MVP):** $0 COP de gasto nuevo. Se debe maximizar el uso de tecnologías libres, librerías *open source* y, cuando sean viables, capas gratuitas de servicios de IA/búsqueda. No se ha confirmado qué servicios externos, credenciales o infraestructura ya están disponibles ni su permanencia sin costo.
+- **Presupuesto inicial (MVP):** $0 COP de gasto nuevo. Se usarán tecnologías libres y recursos internos disponibles; IA, *scraping* y conectores automáticos están fuera del MVP.
 - **Entorno de desarrollo:** Máquina local del desarrollador.
-- **Entorno de producción interna:** Servidor propio (*on-premise*) de la empresa.
+- **Entorno de producción interna:** Servidor propio (*on-premise*) donde Docker funciona correctamente. Sus especificaciones de hardware y sistema operativo siguen pendientes de confirmación.
 - **Interfaz de usuario:** Interfaz web empresarial limpia, sin fricción ni complejidades innecesarias para los operadores.
 
 ---
@@ -76,11 +73,11 @@ Como capacidad objetivo del sistema, se debe persistir:
 > [!IMPORTANT]
 > Los siguientes puntos no han sido decididos y requieren definición técnica o validación posterior:
 
-1. **Catálogo estandarizado de productos:** ¿Se manejará un catálogo maestro cerrado de productos con nombres y variedades normalizadas, o los usuarios podrán escribir términos libres al solicitar insumos?
-2. **Mecanismo de automatización en WhatsApp a costo cero:** ¿Cómo se enviarán y recibirán los mensajes de WhatsApp sin incurrir en costos de API oficial (Meta Cloud API / Twilio) manteniendo estabilidad (p. ej. puente Web, mensajes semiautomatizados mediante enlaces `wa.me`, o comenzar con correos y simulación)?
-3. **Definición precisa de la matriz de roles:** ¿Cuáles serán los nombres exactos y capacidades de cada rol (ej. `Administrador`, `Comprador`, `Aprobador`)?
-4. **Tolerancia y caducidad de cotizaciones:** ¿Durante cuánto tiempo se considera válida una cotización recibida de un proveedor antes de requerir actualización?
-5. **Criterios de ordenamiento de ofertas:** Además del precio final puesto en bodega, ¿qué peso tendrán factores como tiempo de entrega, reputación del proveedor o condiciones de pago (crédito vs. contado)?
-6. **Cálculo de costo puesto en bodega:** ¿Qué conceptos, además de precio base y flete, se incluirán o excluirán (impuestos, cargue/descargue, seguros, mínimos de pedido y otros cargos), y quién validará el dato de flete cuando no esté confirmado por el proveedor?
-7. **Alcance verificable del MVP:** ¿La primera versión solo registrará y comparará opciones públicas, o incluirá preparación de RFQ, envío por correo, enlaces de WhatsApp y/o lectura de respuestas? La hoja de ruta plantea una secuencia, pero no sustituye esta definición de alcance.
-8. **Uso de fuentes y contacto de proveedores:** ¿Qué fuentes pueden consultarse y con qué frecuencia, y qué consentimiento, revisión humana o políticas internas se exigirán antes de contactar proveedores por correo o WhatsApp?
+1. **Fórmula de landed cost:** Debe validarse con personal operativo, probablemente un supervisor de bodega junto con el área de compras; no debe ser inventada desde desarrollo.
+2. **Normalización y equivalencias:** Falta definir el tratamiento de catálogo, nombres, variedades, calidades y unidades de medida.
+3. **Formato de datos históricos:** Falta confirmar el formato y mecanismo de obtención de compras históricas y cotizaciones existentes.
+4. **Fuentes iniciales:** Falta acordar cuáles fuentes potenciales se registrarán y utilizarán primero.
+5. **Especificaciones del servidor:** Faltan hardware, sistema operativo y demás condiciones de despliegue.
+6. **Política de backup/retención:** Falta definir respaldo, recuperación y retención de datos y evidencias.
+7. **Matriz precisa de roles:** Faltan los nombres y capacidades exactas de los roles simples.
+8. **Reglas de comparación:** Faltan vigencia de cotizaciones y criterios adicionales de evaluación y ordenamiento.

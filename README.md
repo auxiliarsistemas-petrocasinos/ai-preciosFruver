@@ -6,7 +6,7 @@ Sistema inteligente de búsqueda, prospección y cotización de materias primas 
 
 ## 🎯 Objetivo
 
-Reducir los costos de materias primas e insumos adquiridos por la empresa, automatizando la búsqueda y cotización de proveedores a nivel nacional para identificar la mejor opción de compra con el **producto entregado en la puerta de la bodega** (*landed cost* que incluye precio base + flete/logística).
+Reducir los costos de materias primas e insumos adquiridos por la empresa, apoyando la investigación, captura y comparación verificable de alternativas de proveedores a nivel nacional. La comparación contempla el concepto de **producto entregado en la puerta de la bodega** (*landed cost*), cuya fórmula permanece pendiente de validación operativa.
 
 ---
 
@@ -26,9 +26,11 @@ El diseño y alcance del sistema se encuentra detallado en la carpeta [`docs/`](
 - **[`docs/PROJECT.md`](docs/PROJECT.md):** Definición completa del problema, requerimientos de negocio, variables logísticas, datos requeridos y preguntas abiertas.
 - **[`docs/ROADMAP.md`](docs/ROADMAP.md):** Plan de evolución organizado en **Now** (MVP), **Next** (Fase 2) y **Later** (Fase 3).
 - **[`docs/DECISIONS.md`](docs/DECISIONS.md):** Registro de decisiones tomadas explícitamente y decisiones pendientes por resolver.
+- **[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md):** Arquitectura técnica aceptada para el MVP.
+- **[`docs/STATUS.md`](docs/STATUS.md):** Estado de definición, validaciones humanas pendientes y exclusiones del MVP.
 
 ---
 
 ## 📌 Estado Actual
 
-Fase de **definición de requerimientos y documentación fundacional**. No se ha iniciado la escritura de código ni la selección definitiva de frameworks, librerías o integraciones. Las decisiones aceptadas, los pendientes y el alcance tentativo por fase están diferenciados en la documentación enlazada.
+Fase de **definición de requerimientos y documentación fundacional**. No se ha iniciado la escritura de código. La arquitectura técnica base del MVP ya fue aceptada; las reglas operativas y los datos de partida que aún requieren validación humana se diferencian en la documentación enlazada.
