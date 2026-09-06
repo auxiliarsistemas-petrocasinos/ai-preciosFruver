@@ -33,19 +33,42 @@ El diseño y alcance del sistema se encuentra detallado en la carpeta [`docs/`](
 
 ## 📌 Estado Actual
 
-Existe un bootstrap técnico del monolito: FastAPI, Jinja2, HTMX, configuración por entorno, Docker Compose con PostgreSQL y almacenamiento persistente de evidencias. No incluye funcionalidades de negocio ni una capa de datos/migraciones, ya que su estrategia sigue pendiente de definición.
+Existe un bootstrap técnico del monolito: FastAPI, Jinja2, HTMX, configuración por entorno, Docker Compose con PostgreSQL y almacenamiento persistente de evidencias. Incluye persistencia síncrona y migraciones Alembic para el registro y consulta de necesidades de compra.
 
 ## Ejecución local
 
 Requiere Python 3.13 o superior.
 
 1. Cree el archivo de entorno: `cp .env.example .env`.
-2. En `.env`, sustituya `POSTGRES_PASSWORD` y mantenga `DATABASE_URL` coherente con esos valores. Dentro de Docker Compose, el host de la URL debe ser `db`.
+2. En `.env`, sustituya `POSTGRES_PASSWORD` y mantenga `DATABASE_URL` coherente con esos valores.
 3. Cree y active un entorno virtual, e instale las dependencias de desarrollo: `python3 -m venv .venv`, `source .venv/bin/activate` y `python -m pip install -e '.[dev]'`.
 4. Cargue las variables y ejecute la aplicación: `set -a; source .env; set +a; uvicorn app.main:app --reload`.
 5. Abra `http://127.0.0.1:8000/` y pulse **Comprobar HTMX**. El estado técnico está disponible en `http://127.0.0.1:8000/health`.
 
 Para ejecutar los servicios en contenedores, después de crear `.env` use `docker compose up --build`. La aplicación quedará disponible en `http://127.0.0.1:8000/`. Docker Compose conserva PostgreSQL y los archivos de evidencias en volúmenes con nombre. La configuración de proxy inverso/HTTPS y las políticas de respaldo o retención continúan pendientes.
+
+## Migraciones y URL de PostgreSQL
+
+La imagen de `app` incluye Alembic y los archivos de migración. Con Docker Compose activo, ejecute las migraciones desde ese mismo contexto de red:
+
+```bash
+docker compose exec app python -m alembic upgrade head
+docker compose exec app python -m alembic current
+```
+
+Dentro de Docker Compose, el servicio `app` recibe automáticamente una `DATABASE_URL` con el dialecto de psycopg 3 y el host interno `db`:
+
+```text
+postgresql+psycopg://usuario:contraseña@db:5432/base_de_datos
+```
+
+Para ejecutar la aplicación o Alembic directamente desde WSL, use `localhost` porque el nombre `db` solo existe en la red de Compose. El puerto se publica mediante `POSTGRES_PORT` (por defecto `5432`):
+
+```text
+postgresql+psycopg://usuario:contraseña@localhost:5432/base_de_datos
+```
+
+Por ejemplo, después de cargar `.env`, puede ejecutar `python -m alembic upgrade head` desde WSL mientras los servicios de Compose estén activos.
 
 ## Validaciones
 

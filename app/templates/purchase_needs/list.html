@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Necesidades de compra · ai-preciosFruver{% endblock %}
+
+{% block content %}
+  <h1>Necesidades de compra</h1>
+  <p><a href="/purchase-needs/new">Registrar necesidad de compra</a></p>
+  {% if purchase_needs %}
+    <ul>
+      {% for purchase_need in purchase_needs %}
+        <li>
+          <a href="/purchase-needs/{{ purchase_need.id }}">{{ purchase_need.product_name }}</a>
+          — {{ "{:f}".format(purchase_need.quantity).rstrip("0").rstrip(".") }} {{ purchase_need.unit_of_measure }}
+          — entrega: {{ purchase_need.required_delivery_date }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay necesidades de compra registradas.</p>
+  {% endif %}
+{% endblock %}

@@ -11,6 +11,7 @@ El MVP será un **monolito modular** desplegable con Docker Compose. No se divid
 | Aplicación | Python con FastAPI |
 | Interfaz web | Plantillas Jinja2 y HTMX |
 | Base de datos | PostgreSQL |
+| Persistencia y migraciones | SQLAlchemy 2.x síncrono, psycopg 3 y Alembic |
 | Empaquetado y ejecución | Docker Compose |
 | Evidencias | Almacenamiento persistente para archivos y documentos asociados |
 | Acceso | Autenticación local y roles simples |
@@ -25,4 +26,3 @@ No forman parte de esta arquitectura del MVP la IA, el *scraping* universal, con
 ## Aspectos no definidos por esta arquitectura
 
 Esta decisión no fija la fórmula de *landed cost*, las reglas de normalización/equivalencias, el formato de datos históricos, las fuentes iniciales, las especificaciones del servidor ni la política de backup/retención. Esos aspectos requieren validación humana.
-

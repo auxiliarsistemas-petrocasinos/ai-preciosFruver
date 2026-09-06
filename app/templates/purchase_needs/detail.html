@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Necesidad de compra #{{ purchase_need.id }} · ai-preciosFruver{% endblock %}
+
+{% block content %}
+  <h1>Necesidad de compra</h1>
+  <dl>
+    <dt>Producto o materia prima</dt><dd>{{ purchase_need.product_name }}</dd>
+    <dt>Variedad</dt><dd>{{ purchase_need.variety or 'No registrada' }}</dd>
+    <dt>Estándar de calidad</dt><dd>{{ purchase_need.quality_standard or 'No registrado' }}</dd>
+    <dt>Cantidad</dt><dd>{{ "{:f}".format(purchase_need.quantity).rstrip("0").rstrip(".") }} {{ purchase_need.unit_of_measure }}</dd>
+    <dt>Fecha requerida de entrega</dt><dd>{{ purchase_need.required_delivery_date }}</dd>
+    <dt>Ciudad destino</dt><dd>{{ purchase_need.destination_city }}</dd>
+    <dt>Ubicación destino</dt><dd>{{ purchase_need.destination_location }}</dd>
+    <dt>Registrada el</dt><dd>{{ purchase_need.created_at.strftime('%d/%m/%Y %H:%M %Z') }}</dd>
+  </dl>
+  <p><a href="/purchase-needs">Volver al listado</a></p>
+{% endblock %}

@@ -46,6 +46,11 @@ Este documento registra decisiones aceptadas y pendientes explícitos. No convie
 - **Estado:** Aceptada.
 - **Decisión:** Quedan fuera del MVP: IA, *scraping* universal, conectores automáticos de proveedores, agentes autónomos, automatización completa de RFQ, integración ERP, órdenes de compra, pagos y microservicios.
 
+### ADR-009: Persistencia relacional y migraciones
+
+- **Estado:** Aceptada.
+- **Decisión:** El MVP utiliza PostgreSQL con SQLAlchemy 2.x y psycopg 3 mediante acceso síncrono. Las migraciones de esquema se gestionan con Alembic. No se utiliza SQLAlchemy async.
+
 ---
 
 ## Pendientes de validación humana
