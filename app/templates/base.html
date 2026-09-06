@@ -8,7 +8,11 @@
     <script src="https://unpkg.com/htmx.org@2.0.8" defer></script>
   </head>
   <body>
-    <main>{% block content %}{% endblock %}</main>
+    <main>
+      <nav aria-label="Navegación principal">
+        <a href="/purchase-needs">Necesidades de compra</a>
+      </nav>
+      {% block content %}{% endblock %}
+    </main>
   </body>
 </html>
-

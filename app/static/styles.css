@@ -26,4 +26,33 @@ button {
   color: #17663a;
   font-weight: 600;
 }
+body {
+  font-family: sans-serif;
+  margin: 2rem;
+}
 
+main {
+  max-width: 52rem;
+}
+
+nav {
+  margin-bottom: 2rem;
+}
+
+label,
+input,
+textarea {
+  display: block;
+}
+
+input,
+textarea {
+  box-sizing: border-box;
+  margin: 0.3rem 0 1rem;
+  max-width: 100%;
+  width: 32rem;
+}
+
+.error {
+  color: #a40000;
+}

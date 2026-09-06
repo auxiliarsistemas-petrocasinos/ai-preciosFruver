@@ -15,7 +15,7 @@
 - Estructura inicial del monolito FastAPI, con rutas técnicas y de interfaz separadas, plantillas Jinja2 y una comprobación mínima mediante HTMX.
 - Configuración por variables de entorno, Docker Compose con PostgreSQL y volúmenes persistentes separados para base de datos y evidencias.
 - Ruta `GET /health` y pruebas/lint/formato mínimos para Python.
-- No se ha implementado aún ORM, acceso a datos ni migraciones: la estrategia correspondiente no está definida.
+- Persistencia síncrona con SQLAlchemy 2.x, psycopg 3 y Alembic; incluye la primera migración y el registro y consulta de necesidades de compra en PostgreSQL.
 
 ## Pendiente de validación humana
 

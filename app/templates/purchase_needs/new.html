@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Registrar necesidad de compra · ai-preciosFruver{% endblock %}
+
+{% block content %}
+  <h1>Registrar necesidad de compra</h1>
+  <form method="post" action="/purchase-needs" data-purchase-need-form>
+    <label for="product_name">Producto o materia prima</label>
+    <input id="product_name" name="product_name" required value="{{ values.get('product_name', '') }}">
+    {% if errors.get('product_name') %}<p class="error">{{ errors['product_name'] }}</p>{% endif %}
+
+    <label for="variety">Variedad</label>
+    <input id="variety" name="variety" value="{{ values.get('variety', '') }}">
+
+    <label for="quality_standard">Estándar de calidad</label>
+    <input id="quality_standard" name="quality_standard" value="{{ values.get('quality_standard', '') }}">
+
+    <label for="quantity">Cantidad</label>
+    <input id="quantity" name="quantity" type="number" step="any" required value="{{ values.get('quantity', '') }}">
+    {% if errors.get('quantity') %}<p class="error">{{ errors['quantity'] }}</p>{% endif %}
+
+    <label for="unit_of_measure">Unidad de medida</label>
+    <input id="unit_of_measure" name="unit_of_measure" required value="{{ values.get('unit_of_measure', '') }}">
+    {% if errors.get('unit_of_measure') %}<p class="error">{{ errors['unit_of_measure'] }}</p>{% endif %}
+
+    <label for="required_delivery_date">Fecha requerida de entrega</label>
+    <input id="required_delivery_date" name="required_delivery_date" type="date" required value="{{ values.get('required_delivery_date', '') }}">
+    {% if errors.get('required_delivery_date') %}<p class="error">{{ errors['required_delivery_date'] }}</p>{% endif %}
+
+    <label for="destination_city">Ciudad destino</label>
+    <input id="destination_city" name="destination_city" required value="{{ values.get('destination_city', '') }}">
+    {% if errors.get('destination_city') %}<p class="error">{{ errors['destination_city'] }}</p>{% endif %}
+
+    <label for="destination_location">Ubicación destino</label>
+    <textarea id="destination_location" name="destination_location" required>{{ values.get('destination_location', '') }}</textarea>
+    {% if errors.get('destination_location') %}<p class="error">{{ errors['destination_location'] }}</p>{% endif %}
+
+    <button type="submit">Guardar necesidad</button>
+  </form>
+  <script src="{{ url_for('static', path='/purchase-needs.js') }}" defer></script>
+{% endblock %}

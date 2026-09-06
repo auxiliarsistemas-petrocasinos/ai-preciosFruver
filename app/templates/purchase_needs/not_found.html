@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Necesidad no encontrada · ai-preciosFruver{% endblock %}
+
+{% block content %}
+  <h1>Necesidad de compra no encontrada</h1>
+  <p>No existe una necesidad de compra con identificador {{ purchase_need_id }}.</p>
+  <p><a href="/purchase-needs">Volver al listado</a></p>
+{% endblock %}
