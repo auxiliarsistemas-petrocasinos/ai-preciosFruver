@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Proveedores · ai-preciosFruver{% endblock %}
+
+{% block content %}
+  <h1>Proveedores</h1>
+  <p><a href="/providers/new">Registrar proveedor</a></p>
+  {% if providers %}
+    <ul>
+      {% for provider in providers %}
+        <li><a href="/providers/{{ provider.id }}">{{ provider.name }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay proveedores registrados.</p>
+  {% endif %}
+{% endblock %}

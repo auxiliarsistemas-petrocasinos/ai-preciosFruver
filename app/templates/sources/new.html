@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Registrar fuente · ai-preciosFruver{% endblock %}
+
+{% block content %}
+  <h1>Registrar fuente</h1>
+  <form method="post" action="/sources">
+    <label for="name">Nombre</label>
+    <input id="name" name="name" required value="{{ values.get('name', '') }}">
+    {% if errors.get('name') %}<p class="error">{{ errors['name'] }}</p>{% endif %}
+
+    <label for="reference">Referencia</label>
+    <input id="reference" name="reference" value="{{ values.get('reference', '') }}">
+
+    <label for="notes">Notas</label>
+    <textarea id="notes" name="notes">{{ values.get('notes', '') }}</textarea>
+
+    <button type="submit">Guardar fuente</button>
+  </form>
+  <p><a href="/sources">Volver al listado</a></p>
+{% endblock %}

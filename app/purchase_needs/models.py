@@ -2,11 +2,15 @@
 
 from datetime import date, datetime
 from decimal import Decimal
+from typing import TYPE_CHECKING
 
 from sqlalchemy import Date, DateTime, Integer, Numeric, Text, func
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
+
+if TYPE_CHECKING:
+    from app.prospecting.models import ProspectingRecord
 
 
 class PurchaseNeed(Base):
@@ -25,4 +29,7 @@ class PurchaseNeed(Base):
     destination_location: Mapped[str] = mapped_column(Text, nullable=False)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, server_default=func.now()
+    )
+    prospecting_records: Mapped[list["ProspectingRecord"]] = relationship(
+        back_populates="purchase_need", order_by="ProspectingRecord.created_at.desc()"
     )

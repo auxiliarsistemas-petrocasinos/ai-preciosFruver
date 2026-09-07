@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Fuentes · ai-preciosFruver{% endblock %}
+
+{% block content %}
+  <h1>Fuentes</h1>
+  <p><a href="/sources/new">Registrar fuente</a></p>
+  {% if sources %}
+    <ul>
+      {% for source in sources %}
+        <li><a href="/sources/{{ source.id }}">{{ source.name }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay fuentes registradas.</p>
+  {% endif %}
+{% endblock %}

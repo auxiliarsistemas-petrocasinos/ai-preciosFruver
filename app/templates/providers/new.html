@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Registrar proveedor · ai-preciosFruver{% endblock %}
+
+{% block content %}
+  <h1>Registrar proveedor</h1>
+  <form method="post" action="/providers">
+    <label for="name">Nombre</label>
+    <input id="name" name="name" required value="{{ values.get('name', '') }}">
+    {% if errors.get('name') %}<p class="error">{{ errors['name'] }}</p>{% endif %}
+
+    <label for="contact_name">Nombre de contacto</label>
+    <input id="contact_name" name="contact_name" value="{{ values.get('contact_name', '') }}">
+
+    <label for="email">Correo electrónico</label>
+    <input id="email" name="email" value="{{ values.get('email', '') }}">
+
+    <label for="phone">Teléfono</label>
+    <input id="phone" name="phone" value="{{ values.get('phone', '') }}">
+
+    <label for="location">Ubicación</label>
+    <input id="location" name="location" value="{{ values.get('location', '') }}">
+
+    <label for="notes">Notas</label>
+    <textarea id="notes" name="notes">{{ values.get('notes', '') }}</textarea>
+
+    <button type="submit">Guardar proveedor</button>
+  </form>
+  <p><a href="/providers">Volver al listado</a></p>
+{% endblock %}

@@ -8,13 +8,13 @@ Este documento propone una secuencia de evolución en tres horizontes (**Now**, 
 
 **Objetivo:** Validar el flujo de captura de necesidades, prospección inicial y comparación de precios con la menor fricción y sin gasto nuevo.
 
-- [ ] **Módulo de Solicitud de Insumos:**
+- [x] **Módulo de Solicitud de Insumos:**
   - Formulario web intuitivo para capturar parámetros de compra (producto, variedad, cantidad, unidad, fecha requerida, bodega destino).
 - [ ] **Base de Proveedores, Fuentes y Línea Base (*Benchmark*):**
-  - Registro de distintas fuentes potenciales de proveedores, sin lista cerrada inicial.
-  - Construcción inicial del *benchmark* principalmente con compras históricas y cotizaciones existentes; su formato y mecanismo de obtención están pendientes de confirmar.
+  - [x] Registro y consulta de fuentes y proveedores reutilizables, sin lista cerrada inicial, y registro manual de prospecciones por necesidad con proveedor opcional.
+  - [ ] Construcción inicial del *benchmark* principalmente con compras históricas y cotizaciones existentes; su formato y mecanismo de obtención están pendientes de confirmar.
 - [ ] **Captura Manual Asistida y Verificable:**
-  - Registro por usuarios de alternativas, precios y condiciones encontradas en las fuentes aprobadas.
+  - Registro por usuarios de alternativas, precios y condiciones encontradas en las fuentes registradas.
   - Asociación de evidencias y su trazabilidad (PDF, correos, WhatsApp, capturas, URLs, páginas web y otros documentos).
 - [ ] **Tablero Comparativo y Decisión:**
   - Vista comparativa de opciones encontradas frente a la línea base actual.

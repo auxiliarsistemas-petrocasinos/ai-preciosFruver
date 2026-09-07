@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Fuente #{{ source.id }} · ai-preciosFruver{% endblock %}
+
+{% block content %}
+  <h1>Fuente</h1>
+  <dl>
+    <dt>Nombre</dt><dd>{{ source.name }}</dd>
+    <dt>Referencia</dt><dd>{{ source.reference or 'No registrada' }}</dd>
+    <dt>Notas</dt><dd>{{ source.notes or 'No registradas' }}</dd>
+    <dt>Registrada el</dt><dd>{{ source.created_at.strftime('%d/%m/%Y %H:%M %Z') }}</dd>
+  </dl>
+  <p><a href="/sources">Volver al listado</a></p>
+{% endblock %}
