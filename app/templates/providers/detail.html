@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Proveedor #{{ provider.id }} · ai-preciosFruver{% endblock %}
+
+{% block content %}
+  <h1>Proveedor</h1>
+  <dl>
+    <dt>Nombre</dt><dd>{{ provider.name }}</dd>
+    <dt>Nombre de contacto</dt><dd>{{ provider.contact_name or 'No registrado' }}</dd>
+    <dt>Correo electrónico</dt><dd>{{ provider.email or 'No registrado' }}</dd>
+    <dt>Teléfono</dt><dd>{{ provider.phone or 'No registrado' }}</dd>
+    <dt>Ubicación</dt><dd>{{ provider.location or 'No registrada' }}</dd>
+    <dt>Notas</dt><dd>{{ provider.notes or 'No registradas' }}</dd>
+    <dt>Registrado el</dt><dd>{{ provider.created_at.strftime('%d/%m/%Y %H:%M %Z') }}</dd>
+  </dl>
+  <p><a href="/providers">Volver al listado</a></p>
+{% endblock %}

@@ -10,12 +10,18 @@
 - Monolito modular: Python, FastAPI, Jinja2, HTMX, PostgreSQL y Docker Compose; evidencias persistentes, autenticación local, roles simples y HTTPS mediante proxy inverso.
 - Despliegue interno previsto en un servidor propio donde Docker funciona correctamente.
 
-## Bootstrap técnico implementado
+## Capacidades implementadas
 
 - Estructura inicial del monolito FastAPI, con rutas técnicas y de interfaz separadas, plantillas Jinja2 y una comprobación mínima mediante HTMX.
 - Configuración por variables de entorno, Docker Compose con PostgreSQL y volúmenes persistentes separados para base de datos y evidencias.
 - Ruta `GET /health` y pruebas/lint/formato mínimos para Python.
-- Persistencia síncrona con SQLAlchemy 2.x, psycopg 3 y Alembic; incluye la primera migración y el registro y consulta de necesidades de compra en PostgreSQL.
+- Persistencia síncrona con SQLAlchemy 2.x, psycopg 3 y Alembic.
+- Registro, listado y detalle de necesidades de compra.
+- Registro, listado y detalle de fuentes reutilizables y proveedores reutilizables, sin reglas de aprobación ni unicidad por nombre.
+- Registro manual de prospecciones desde una necesidad de compra mediante una fuente existente y, opcionalmente, un proveedor existente. Las prospecciones quedan visibles en el detalle de la necesidad.
+- Migraciones para `purchase_needs`, `sources`, `providers` y `prospecting_records`, con sus claves foráneas e índices de relación.
+
+Una fuente representa el origen, canal o lugar consultado; no representa una evidencia concreta. La gestión de evidencias todavía no está implementada.
 
 ## Pendiente de validación humana
 

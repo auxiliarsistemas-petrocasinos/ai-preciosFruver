@@ -51,6 +51,15 @@ Este documento registra decisiones aceptadas y pendientes explícitos. No convie
 - **Estado:** Aceptada.
 - **Decisión:** El MVP utiliza PostgreSQL con SQLAlchemy 2.x y psycopg 3 mediante acceso síncrono. Las migraciones de esquema se gestionan con Alembic. No se utiliza SQLAlchemy async.
 
+### ADR-010: Fuentes, proveedores y registros de prospección
+
+- **Estado:** Aceptada.
+- **Decisión:** `Source` es una entidad reutilizable para el origen, canal o lugar consultado durante la prospección. Conserva nombre obligatorio, referencia opcional de texto libre, notas opcionales y fecha de creación. No representa la evidencia concreta.
+- **Decisión:** `Provider` es una contraparte comercial reutilizable y es válida con solo un nombre. Puede conservar opcionalmente nombre de contacto, correo, teléfono, ubicación de texto libre y notas. No se impone unicidad por nombre.
+- **Decisión:** `ProspectingRecord` registra en contexto que una necesidad consultó una fuente. La fuente y la necesidad son obligatorias; el proveedor y las notas son opcionales, de modo que se pueda registrar una consulta sin proveedor resultante.
+- **Relaciones:** Una necesidad, una fuente o un proveedor pueden participar en múltiples registros de prospección. No existe una relación global directa entre fuente y proveedor.
+- **Alcance actual:** Creación y consulta de fuentes y proveedores, y registro manual y visualización de prospecciones en una necesidad. Edición, eliminación, evidencias, cotizaciones, precios, evaluación y aprobación permanecen fuera de este incremento.
+
 ---
 
 ## Pendientes de validación humana

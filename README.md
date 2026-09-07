@@ -33,7 +33,7 @@ El diseño y alcance del sistema se encuentra detallado en la carpeta [`docs/`](
 
 ## 📌 Estado Actual
 
-Existe un bootstrap técnico del monolito: FastAPI, Jinja2, HTMX, configuración por entorno, Docker Compose con PostgreSQL y almacenamiento persistente de evidencias. Incluye persistencia síncrona y migraciones Alembic para el registro y consulta de necesidades de compra.
+Existe un incremento funcional del monolito: FastAPI, Jinja2, HTMX, configuración por entorno, Docker Compose con PostgreSQL y almacenamiento persistente previsto para evidencias. Incluye persistencia síncrona y migraciones Alembic para registrar y consultar necesidades de compra, fuentes y proveedores, además de asociar prospecciones manuales a cada necesidad con proveedor opcional.
 
 ## Ejecución local
 

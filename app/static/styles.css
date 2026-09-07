@@ -41,16 +41,22 @@ nav {
 
 label,
 input,
+select,
 textarea {
   display: block;
 }
 
 input,
+select,
 textarea {
   box-sizing: border-box;
   margin: 0.3rem 0 1rem;
   max-width: 100%;
   width: 32rem;
+}
+
+nav a + a {
+  margin-left: 1rem;
 }
 
 .error {

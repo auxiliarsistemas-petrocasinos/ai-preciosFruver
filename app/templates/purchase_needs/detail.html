@@ -14,5 +14,55 @@
     <dt>Ubicación destino</dt><dd>{{ purchase_need.destination_location }}</dd>
     <dt>Registrada el</dt><dd>{{ purchase_need.created_at.strftime('%d/%m/%Y %H:%M %Z') }}</dd>
   </dl>
+
+  <h2>Prospecciones</h2>
+  {% if purchase_need.prospecting_records %}
+    <ul>
+      {% for record in purchase_need.prospecting_records %}
+        <li>
+          Fuente: <a href="/sources/{{ record.source.id }}">{{ record.source.name }}</a>
+          — Proveedor:
+          {% if record.provider %}
+            <a href="/providers/{{ record.provider.id }}">{{ record.provider.name }}</a>
+          {% else %}
+            Sin proveedor
+          {% endif %}
+          {% if record.notes %}— {{ record.notes }}{% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay prospecciones registradas para esta necesidad.</p>
+  {% endif %}
+
+  <h2>Registrar prospección</h2>
+  {% if sources %}
+    <form method="post" action="/purchase-needs/{{ purchase_need.id }}/prospecting-records">
+      <label for="source_id">Fuente</label>
+      <select id="source_id" name="source_id" required>
+        <option value="">Seleccione una fuente</option>
+        {% for source in sources %}
+          <option value="{{ source.id }}" {% if prospecting_values.get('source_id') == source.id|string %}selected{% endif %}>{{ source.name }}</option>
+        {% endfor %}
+      </select>
+      {% if prospecting_errors.get('source_id') %}<p class="error">{{ prospecting_errors['source_id'] }}</p>{% endif %}
+
+      <label for="provider_id">Proveedor (opcional)</label>
+      <select id="provider_id" name="provider_id">
+        <option value="">Sin proveedor</option>
+        {% for provider in providers %}
+          <option value="{{ provider.id }}" {% if prospecting_values.get('provider_id') == provider.id|string %}selected{% endif %}>{{ provider.name }}</option>
+        {% endfor %}
+      </select>
+      {% if prospecting_errors.get('provider_id') %}<p class="error">{{ prospecting_errors['provider_id'] }}</p>{% endif %}
+
+      <label for="prospecting_notes">Notas</label>
+      <textarea id="prospecting_notes" name="notes">{{ prospecting_values.get('notes', '') }}</textarea>
+
+      <button type="submit">Guardar prospección</button>
+    </form>
+  {% else %}
+    <p>Debe <a href="/sources/new">registrar una fuente</a> antes de guardar una prospección.</p>
+  {% endif %}
   <p><a href="/purchase-needs">Volver al listado</a></p>
 {% endblock %}

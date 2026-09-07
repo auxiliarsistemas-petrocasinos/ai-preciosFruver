@@ -7,7 +7,10 @@ from sqlalchemy import engine_from_config, pool
 
 from app.core.config import settings
 from app.db.base import Base
+from app.prospecting import models as prospecting_models  # noqa: F401
+from app.providers import models as provider_models  # noqa: F401
 from app.purchase_needs import models  # noqa: F401
+from app.sources import models as source_models  # noqa: F401
 
 config = context.config
 

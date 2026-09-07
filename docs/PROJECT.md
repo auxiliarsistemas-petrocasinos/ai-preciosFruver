@@ -35,13 +35,15 @@ Para iniciar un proceso de búsqueda y cotización, el sistema debe capturar com
 
 El sistema permitirá registrar distintas fuentes potenciales de proveedores, sin partir de una lista cerrada. En el MVP, la investigación y captura de información será manual, asistida y verificable; no incluirá *scraping* ni conectores automáticos.
 
+Una fuente representa de forma reutilizable el origen, canal o lugar consultado. Una prospección vincula en contexto la necesidad con una fuente y puede registrar opcionalmente un proveedor reutilizable. La fuente no representa una captura, PDF, cotización, correo, conversación u otro artefacto concreto; esos elementos corresponden a evidencias.
+
 El **benchmark** inicial se construirá principalmente con compras históricas y cotizaciones existentes. El formato y el mecanismo para obtener estos datos siguen pendientes de confirmación.
 
 ---
 
 ## 5. Dinámica de Cotización
 
-1. **Captura asistida y verificable:** El usuario registra las alternativas y sus evidencias; las fuentes pueden incluir sitios web, cotizaciones y comunicaciones con proveedores.
+1. **Captura asistida y verificable:** El usuario registra la prospección realizada en fuentes como sitios web, directorios o referidos. Los artefactos concretos, como cotizaciones y comunicaciones con proveedores, se conservan como evidencias en la capacidad correspondiente.
 2. **Solicitudes de cotización (RFQ):** La automatización completa de preparación, envío y recepción no pertenece al MVP.
 3. **Canales de comunicación:** Correo electrónico y WhatsApp son canales relevantes para evidencias y futuras interacciones, sin integración automática en el MVP.
 4. **Decisión humana:** Compras evalúa, aprueba y decide finalmente la alternativa y la compra.
