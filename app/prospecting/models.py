@@ -9,6 +9,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base
 
 if TYPE_CHECKING:
+    from app.commercial_offers.models import CommercialOffer
     from app.providers.models import Provider
     from app.purchase_needs.models import PurchaseNeed
     from app.sources.models import Source
@@ -35,3 +36,7 @@ class ProspectingRecord(Base):
     purchase_need: Mapped["PurchaseNeed"] = relationship(back_populates="prospecting_records")
     source: Mapped["Source"] = relationship(back_populates="prospecting_records")
     provider: Mapped["Provider | None"] = relationship(back_populates="prospecting_records")
+    commercial_offers: Mapped[list["CommercialOffer"]] = relationship(
+        back_populates="prospecting_record",
+        order_by="(CommercialOffer.obtained_on.desc(), CommercialOffer.created_at.desc())",
+    )

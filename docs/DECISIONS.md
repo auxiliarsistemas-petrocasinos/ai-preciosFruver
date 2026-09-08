@@ -60,6 +60,15 @@ Este documento registra decisiones aceptadas y pendientes explícitos. No convie
 - **Relaciones:** Una necesidad, una fuente o un proveedor pueden participar en múltiples registros de prospección. No existe una relación global directa entre fuente y proveedor.
 - **Alcance actual:** Creación y consulta de fuentes y proveedores, y registro manual y visualización de prospecciones en una necesidad. Edición, eliminación, evidencias, cotizaciones, precios, evaluación y aprobación permanecen fuera de este incremento.
 
+### ADR-011: Ofertas comerciales como alternativas candidatas
+
+- **Estado:** Aceptada.
+- **Decisión:** `CommercialOffer` representa una oferta comercial estructurada que funciona como alternativa candidata dentro de una necesidad. Puede registrar un precio público, información recibida informalmente, una respuesta de proveedor o los datos de una cotización formal. El artefacto que sustenta la información corresponde a evidencia y no forma parte de esta entidad.
+- **Relación:** Una prospección puede tener múltiples ofertas comerciales. Cada oferta pertenece obligatoriamente a un `ProspectingRecord` y deriva de este la necesidad, fuente y proveedor, sin duplicar sus claves foráneas.
+- **Regla:** La aplicación solo permite registrar ofertas cuando la prospección tiene proveedor asociado. Las prospecciones sin proveedor continúan representando consultas sin resultado comercial.
+- **Captura:** Cada oferta conserva precio positivo, unidad del precio y moneda como texto libre, fecha de obtención, descripción opcional y condiciones opcionales de texto libre. No se asignan monedas por defecto, no se exige coincidencia de unidades y no se realizan normalizaciones, conversiones, comparaciones ni cálculos.
+- **Alcance actual:** Creación y visualización contextual desde el detalle de la necesidad. Listado global, detalle independiente, edición, eliminación, evidencias, benchmark, evaluación y decisión permanecen pendientes.
+
 ---
 
 ## Pendientes de validación humana

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Proveedor requerido · ai-preciosFruver{% endblock %}
+
+{% block content %}
+  <h1>No se puede registrar la oferta comercial</h1>
+  <p>La prospección debe tener un proveedor asociado antes de registrar ofertas comerciales.</p>
+  <p><a href="/purchase-needs/{{ purchase_need.id }}">Volver a la necesidad</a></p>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Prospección no encontrada · ai-preciosFruver{% endblock %}
+
+{% block content %}
+  <h1>Prospección no encontrada</h1>
+  <p>La prospección {{ prospecting_record_id }} no existe para esta necesidad de compra.</p>
+  <p><a href="/purchase-needs/{{ purchase_need.id }}">Volver a la necesidad</a></p>
+{% endblock %}

@@ -29,8 +29,11 @@ No forman parte de esta arquitectura del MVP la IA, el *scraping* universal, con
 - `sources`: fuentes reutilizables que representan el origen, canal o lugar consultado durante la prospección.
 - `providers`: contrapartes comerciales reutilizables; para su registro solo es obligatorio el nombre.
 - `prospecting`: registros contextuales que vinculan una necesidad con una fuente y, opcionalmente, con un proveedor.
+- `commercial_offers`: ofertas comerciales capturadas manualmente para una prospección con proveedor; representan alternativas candidatas dentro de la necesidad.
 
-Las relaciones implementadas son `PurchaseNeed 1 -> N ProspectingRecord`, `Source 1 -> N ProspectingRecord` y `Provider 1 -> N ProspectingRecord`, con proveedor opcional en cada prospección. No existe una relación global directa entre fuentes y proveedores. Una fuente no es el artefacto concreto que sustenta un hallazgo; ese artefacto corresponderá al concepto de evidencia en un incremento posterior.
+Las relaciones implementadas son `PurchaseNeed 1 -> N ProspectingRecord`, `Source 1 -> N ProspectingRecord`, `Provider 1 -> N ProspectingRecord` y `ProspectingRecord 1 -> N CommercialOffer`, con proveedor opcional en cada prospección. Una oferta solo puede registrarse mediante la aplicación cuando la prospección tiene proveedor. `CommercialOffer` deriva necesidad, fuente y proveedor de su prospección y no duplica esas relaciones. No existe una relación global directa entre fuentes y proveedores.
+
+Una fuente no es el artefacto concreto que sustenta un hallazgo y una oferta comercial no es su cotización PDF, correo, conversación u otra evidencia. Esos artefactos corresponderán al concepto de evidencia en un incremento posterior. Los precios, unidades, monedas y condiciones se conservan como fueron capturados, sin conversiones, normalización, comparación ni cálculo de *landed cost*.
 
 ## Aspectos no definidos por esta arquitectura
 

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Registrar oferta comercial · ai-preciosFruver{% endblock %}
+
+{% block content %}
+  <h1>Registrar oferta comercial</h1>
+  <dl>
+    <dt>Necesidad</dt><dd>{{ purchase_need.product_name }}</dd>
+    <dt>Fuente</dt><dd><a href="/sources/{{ prospecting_record.source.id }}">{{ prospecting_record.source.name }}</a></dd>
+    <dt>Proveedor</dt><dd><a href="/providers/{{ prospecting_record.provider.id }}">{{ prospecting_record.provider.name }}</a></dd>
+  </dl>
+
+  <form method="post" action="/purchase-needs/{{ purchase_need.id }}/prospecting-records/{{ prospecting_record.id }}/commercial-offers">
+    <label for="price_amount">Precio</label>
+    <input id="price_amount" name="price_amount" type="number" step="any" required value="{{ values.get('price_amount', '') }}">
+    {% if errors.get('price_amount') %}<p class="error">{{ errors['price_amount'] }}</p>{% endif %}
+
+    <label for="price_unit">Unidad del precio</label>
+    <input id="price_unit" name="price_unit" required value="{{ values.get('price_unit', '') }}">
+    {% if errors.get('price_unit') %}<p class="error">{{ errors['price_unit'] }}</p>{% endif %}
+
+    <label for="currency">Moneda</label>
+    <input id="currency" name="currency" required value="{{ values.get('currency', '') }}">
+    {% if errors.get('currency') %}<p class="error">{{ errors['currency'] }}</p>{% endif %}
+
+    <label for="obtained_on">Fecha de obtención</label>
+    <input id="obtained_on" name="obtained_on" type="date" required value="{{ values.get('obtained_on', '') }}">
+    {% if errors.get('obtained_on') %}<p class="error">{{ errors['obtained_on'] }}</p>{% endif %}
+
+    <label for="offered_description">Descripción de lo ofrecido</label>
+    <textarea id="offered_description" name="offered_description">{{ values.get('offered_description', '') }}</textarea>
+
+    <label for="conditions">Condiciones</label>
+    <textarea id="conditions" name="conditions" aria-describedby="conditions-help">{{ values.get('conditions', '') }}</textarea>
+    <p id="conditions-help">Puede registrar transporte, entrega, vigencia, pago, mínimos, presentación, impuestos u otras condiciones.</p>
+
+    <button type="submit">Guardar oferta comercial</button>
+  </form>
+  <p><a href="/purchase-needs/{{ purchase_need.id }}">Volver a la necesidad</a></p>
+{% endblock %}

@@ -14,8 +14,8 @@ Este documento propone una secuencia de evolución en tres horizontes (**Now**, 
   - [x] Registro y consulta de fuentes y proveedores reutilizables, sin lista cerrada inicial, y registro manual de prospecciones por necesidad con proveedor opcional.
   - [ ] Construcción inicial del *benchmark* principalmente con compras históricas y cotizaciones existentes; su formato y mecanismo de obtención están pendientes de confirmar.
 - [ ] **Captura Manual Asistida y Verificable:**
-  - Registro por usuarios de alternativas, precios y condiciones encontradas en las fuentes registradas.
-  - Asociación de evidencias y su trazabilidad (PDF, correos, WhatsApp, capturas, URLs, páginas web y otros documentos).
+  - [x] Registro por usuarios de ofertas comerciales que funcionan como alternativas candidatas, con precios y condiciones de texto libre encontradas en las fuentes registradas.
+  - [ ] Asociación de evidencias y su trazabilidad (PDF, correos, WhatsApp, capturas, URLs, páginas web y otros documentos).
 - [ ] **Tablero Comparativo y Decisión:**
   - Vista comparativa de opciones encontradas frente a la línea base actual.
   - Registro de la decisión tomada por el comprador.

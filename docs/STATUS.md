@@ -19,9 +19,10 @@
 - Registro, listado y detalle de necesidades de compra.
 - Registro, listado y detalle de fuentes reutilizables y proveedores reutilizables, sin reglas de aprobación ni unicidad por nombre.
 - Registro manual de prospecciones desde una necesidad de compra mediante una fuente existente y, opcionalmente, un proveedor existente. Las prospecciones quedan visibles en el detalle de la necesidad.
-- Migraciones para `purchase_needs`, `sources`, `providers` y `prospecting_records`, con sus claves foráneas e índices de relación.
+- Registro manual de múltiples ofertas comerciales por prospección con proveedor. Cada oferta conserva precio, unidad de precio y moneda sin normalización, fecha de obtención, descripción opcional y condiciones opcionales de texto libre.
+- Migraciones para `purchase_needs`, `sources`, `providers`, `prospecting_records` y `commercial_offers`, con sus claves foráneas e índices de relación.
 
-Una fuente representa el origen, canal o lugar consultado; no representa una evidencia concreta. La gestión de evidencias todavía no está implementada.
+Una fuente representa el origen, canal o lugar consultado; no representa una evidencia concreta. Una oferta comercial es la alternativa candidata estructurada dentro de una necesidad, no el documento o comunicación que la sustenta. La gestión de evidencias todavía no está implementada.
 
 ## Pendiente de validación humana
 
