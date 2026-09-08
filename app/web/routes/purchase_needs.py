@@ -38,6 +38,9 @@ def _purchase_need_with_prospecting(session: Session, purchase_need_id: int) -> 
         .options(
             selectinload(PurchaseNeed.prospecting_records).selectinload(ProspectingRecord.source),
             selectinload(PurchaseNeed.prospecting_records).selectinload(ProspectingRecord.provider),
+            selectinload(PurchaseNeed.prospecting_records).selectinload(
+                ProspectingRecord.commercial_offers
+            ),
         )
     )
 

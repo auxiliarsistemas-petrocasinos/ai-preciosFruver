@@ -28,6 +28,27 @@
             Sin proveedor
           {% endif %}
           {% if record.notes %}— {{ record.notes }}{% endif %}
+
+          {% if record.provider %}
+            <h3>Ofertas comerciales</h3>
+            {% if record.commercial_offers %}
+              <ul>
+                {% for offer in record.commercial_offers %}
+                  <li>
+                    {{ offer.currency }} {{ "{:f}".format(offer.price_amount).rstrip("0").rstrip(".") }}
+                    por {{ offer.price_unit }} — obtenida el {{ offer.obtained_on }}
+                    {% if offer.offered_description %}— {{ offer.offered_description }}{% endif %}
+                    {% if offer.conditions %}— Condiciones: {{ offer.conditions }}{% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p>No hay ofertas comerciales registradas para esta prospección.</p>
+            {% endif %}
+            <p>
+              <a href="/purchase-needs/{{ purchase_need.id }}/prospecting-records/{{ record.id }}/commercial-offers/new">Registrar oferta comercial</a>
+            </p>
+          {% endif %}
         </li>
       {% endfor %}
     </ul>
