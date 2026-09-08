@@ -9,6 +9,7 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
+from app.commercial_offers.models import CommercialOffer
 from app.db.session import get_session
 from app.prospecting.models import ProspectingRecord
 from app.providers.models import Provider
@@ -39,8 +40,11 @@ def _purchase_need_with_prospecting(session: Session, purchase_need_id: int) -> 
             selectinload(PurchaseNeed.prospecting_records).selectinload(ProspectingRecord.source),
             selectinload(PurchaseNeed.prospecting_records).selectinload(ProspectingRecord.provider),
             selectinload(PurchaseNeed.prospecting_records).selectinload(
-                ProspectingRecord.commercial_offers
+                ProspectingRecord.evidence_items
             ),
+            selectinload(PurchaseNeed.prospecting_records)
+            .selectinload(ProspectingRecord.commercial_offers)
+            .selectinload(CommercialOffer.evidence_items),
         )
     )
 

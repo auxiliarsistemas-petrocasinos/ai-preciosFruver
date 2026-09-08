@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Oferta comercial no encontrada · ai-preciosFruver{% endblock %}
+
+{% block content %}
+  <h1>Oferta comercial no encontrada</h1>
+  <p>La oferta comercial {{ commercial_offer_id }} no existe para esta prospección.</p>
+  <p><a href="/purchase-needs/{{ purchase_need.id }}">Volver a la necesidad</a></p>
+{% endblock %}

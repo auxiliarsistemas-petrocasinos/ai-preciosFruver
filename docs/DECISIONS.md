@@ -67,7 +67,16 @@ Este documento registra decisiones aceptadas y pendientes explícitos. No convie
 - **Relación:** Una prospección puede tener múltiples ofertas comerciales. Cada oferta pertenece obligatoriamente a un `ProspectingRecord` y deriva de este la necesidad, fuente y proveedor, sin duplicar sus claves foráneas.
 - **Regla:** La aplicación solo permite registrar ofertas cuando la prospección tiene proveedor asociado. Las prospecciones sin proveedor continúan representando consultas sin resultado comercial.
 - **Captura:** Cada oferta conserva precio positivo, unidad del precio y moneda como texto libre, fecha de obtención, descripción opcional y condiciones opcionales de texto libre. No se asignan monedas por defecto, no se exige coincidencia de unidades y no se realizan normalizaciones, conversiones, comparaciones ni cálculos.
-- **Alcance actual:** Creación y visualización contextual desde el detalle de la necesidad. Listado global, detalle independiente, edición, eliminación, evidencias, benchmark, evaluación y decisión permanecen pendientes.
+- **Alcance actual:** Creación y visualización contextual desde el detalle de la necesidad. Las referencias URL que sustentan ofertas se implementan como `Evidence`; los archivos de evidencia permanecen pendientes. Listado global, detalle independiente, edición, eliminación, benchmark, evaluación y decisión también permanecen pendientes.
+
+### ADR-012: Referencias URL de evidencia
+
+- **Estado:** Aceptada.
+- **Decisión:** `Evidence` representa una referencia URL concreta y contextual que sustenta una prospección o una oferta comercial. No reemplaza a `Source`, que continúa representando el origen, canal o lugar reutilizable donde se investigó.
+- **Relaciones:** Una prospección y una oferta comercial pueden tener múltiples evidencias. Cada evidencia pertenece exactamente a una prospección o a una oferta mediante dos claves foráneas opcionales y una restricción XOR; nunca pertenece a ambas ni queda sin destino. Una evidencia de oferta deriva la prospección, fuente, proveedor y necesidad por las relaciones existentes.
+- **Captura:** Cada evidencia conserva título, URL absoluta HTTP/HTTPS, fecha de captura o consulta, notas opcionales y fecha de creación. Las URLs no son únicas y se presentan por fecha de captura y creación descendentes.
+- **Seguridad:** El servidor valida sintaxis, esquema y host, pero no solicita, verifica, descarga ni previsualiza la URL.
+- **Alcance actual:** Creación y visualización contextual dentro de la necesidad. Carga, almacenamiento y descarga de archivos, tipos de evidencia, edición, eliminación, backup y retención permanecen pendientes.
 
 ---
 

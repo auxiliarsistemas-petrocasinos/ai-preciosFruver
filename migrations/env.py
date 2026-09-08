@@ -8,6 +8,7 @@ from sqlalchemy import engine_from_config, pool
 from app.commercial_offers import models as commercial_offer_models  # noqa: F401
 from app.core.config import settings
 from app.db.base import Base
+from app.evidence import models as evidence_models  # noqa: F401
 from app.prospecting import models as prospecting_models  # noqa: F401
 from app.providers import models as provider_models  # noqa: F401
 from app.purchase_needs import models  # noqa: F401

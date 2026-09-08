@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Añadir evidencia · ai-preciosFruver{% endblock %}
+
+{% block content %}
+  <h1>Añadir evidencia</h1>
+  <dl>
+    <dt>Necesidad</dt><dd>{{ purchase_need.product_name }}</dd>
+    <dt>Fuente</dt><dd><a href="/sources/{{ prospecting_record.source.id }}">{{ prospecting_record.source.name }}</a></dd>
+    <dt>Proveedor</dt>
+    <dd>
+      {% if prospecting_record.provider %}
+        <a href="/providers/{{ prospecting_record.provider.id }}">{{ prospecting_record.provider.name }}</a>
+      {% else %}
+        Sin proveedor
+      {% endif %}
+    </dd>
+    {% if commercial_offer %}
+      <dt>Oferta</dt>
+      <dd>
+        {{ commercial_offer.currency }} {{ "{:f}".format(commercial_offer.price_amount).rstrip("0").rstrip(".") }}
+        por {{ commercial_offer.price_unit }} — obtenida el {{ commercial_offer.obtained_on }}
+      </dd>
+    {% else %}
+      <dt>Destino de la evidencia</dt><dd>Prospección</dd>
+    {% endif %}
+  </dl>
+
+  <form method="post" action="{{ action }}">
+    <label for="title">Título</label>
+    <input id="title" name="title" required value="{{ values.get('title', '') }}">
+    {% if errors.get('title') %}<p class="error">{{ errors['title'] }}</p>{% endif %}
+
+    <label for="url">URL de evidencia</label>
+    <input id="url" name="url" type="url" required value="{{ values.get('url', '') }}" aria-describedby="url-help">
+    {% if errors.get('url') %}<p class="error">{{ errors['url'] }}</p>{% endif %}
+    <p id="url-help">Use una dirección completa que comience por http:// o https://. Evite enlaces que contengan credenciales o tokens privados.</p>
+
+    <label for="captured_on">Fecha de captura o consulta</label>
+    <input id="captured_on" name="captured_on" type="date" required value="{{ values.get('captured_on', '') }}">
+    {% if errors.get('captured_on') %}<p class="error">{{ errors['captured_on'] }}</p>{% endif %}
+
+    <label for="notes">Notas</label>
+    <textarea id="notes" name="notes">{{ values.get('notes', '') }}</textarea>
+
+    <button type="submit">Guardar evidencia</button>
+  </form>
+  <p><a href="/purchase-needs/{{ purchase_need.id }}">Volver a la necesidad</a></p>
+{% endblock %}

@@ -30,10 +30,11 @@ No forman parte de esta arquitectura del MVP la IA, el *scraping* universal, con
 - `providers`: contrapartes comerciales reutilizables; para su registro solo es obligatorio el nombre.
 - `prospecting`: registros contextuales que vinculan una necesidad con una fuente y, opcionalmente, con un proveedor.
 - `commercial_offers`: ofertas comerciales capturadas manualmente para una prospección con proveedor; representan alternativas candidatas dentro de la necesidad.
+- `evidence`: referencias URL concretas que sustentan una prospección o una oferta comercial.
 
-Las relaciones implementadas son `PurchaseNeed 1 -> N ProspectingRecord`, `Source 1 -> N ProspectingRecord`, `Provider 1 -> N ProspectingRecord` y `ProspectingRecord 1 -> N CommercialOffer`, con proveedor opcional en cada prospección. Una oferta solo puede registrarse mediante la aplicación cuando la prospección tiene proveedor. `CommercialOffer` deriva necesidad, fuente y proveedor de su prospección y no duplica esas relaciones. No existe una relación global directa entre fuentes y proveedores.
+Las relaciones implementadas son `PurchaseNeed 1 -> N ProspectingRecord`, `Source 1 -> N ProspectingRecord`, `Provider 1 -> N ProspectingRecord`, `ProspectingRecord 1 -> N CommercialOffer`, `ProspectingRecord 1 -> N Evidence` y `CommercialOffer 1 -> N Evidence`, con proveedor opcional en cada prospección. Una oferta solo puede registrarse mediante la aplicación cuando la prospección tiene proveedor. `CommercialOffer` deriva necesidad, fuente y proveedor de su prospección y no duplica esas relaciones. Cada evidencia pertenece a una prospección o a una oferta, nunca a ambas ni a ninguna, mediante dos claves foráneas y una restricción XOR. No existe una relación global directa entre fuentes y proveedores.
 
-Una fuente no es el artefacto concreto que sustenta un hallazgo y una oferta comercial no es su cotización PDF, correo, conversación u otra evidencia. Esos artefactos corresponderán al concepto de evidencia en un incremento posterior. Los precios, unidades, monedas y condiciones se conservan como fueron capturados, sin conversiones, normalización, comparación ni cálculo de *landed cost*.
+Una fuente no es la referencia concreta que sustenta un hallazgo y una oferta comercial no es su soporte. El incremento actual conserva como evidencia únicamente URLs HTTP/HTTPS registradas manualmente; no accede a ellas desde el servidor ni guarda archivos. La carga persistente de cotizaciones PDF, correos, conversaciones, capturas y otros documentos corresponde a un incremento posterior. Los precios, unidades, monedas y condiciones se conservan como fueron capturados, sin conversiones, normalización, comparación ni cálculo de *landed cost*.
 
 ## Aspectos no definidos por esta arquitectura
 
