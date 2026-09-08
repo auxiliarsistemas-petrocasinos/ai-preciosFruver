@@ -33,7 +33,7 @@ El diseño y alcance del sistema se encuentra detallado en la carpeta [`docs/`](
 
 ## 📌 Estado Actual
 
-Existe un incremento funcional del monolito: FastAPI, Jinja2, HTMX, configuración por entorno, Docker Compose con PostgreSQL y almacenamiento persistente previsto para evidencias. Incluye persistencia síncrona y migraciones Alembic para registrar y consultar necesidades de compra, fuentes y proveedores, asociar prospecciones manuales a cada necesidad con proveedor opcional y capturar múltiples ofertas comerciales cuando la prospección identifica un proveedor.
+Existe un incremento funcional del monolito: FastAPI, Jinja2, HTMX, configuración por entorno, Docker Compose con PostgreSQL y almacenamiento persistente previsto para evidencias. Incluye persistencia síncrona y migraciones Alembic para registrar y consultar necesidades de compra, fuentes y proveedores, asociar prospecciones manuales a cada necesidad con proveedor opcional, capturar múltiples ofertas comerciales cuando la prospección identifica un proveedor y registrar referencias URL de evidencia para una prospección o una oferta.
 
 ## Ejecución local
 
@@ -45,7 +45,7 @@ Requiere Python 3.13 o superior.
 4. Cargue las variables y ejecute la aplicación: `set -a; source .env; set +a; uvicorn app.main:app --reload`.
 5. Abra `http://127.0.0.1:8000/` y pulse **Comprobar HTMX**. El estado técnico está disponible en `http://127.0.0.1:8000/health`.
 
-Para ejecutar los servicios en contenedores, después de crear `.env` use `docker compose up --build`. La aplicación quedará disponible en `http://127.0.0.1:8000/`. Docker Compose conserva PostgreSQL y los archivos de evidencias en volúmenes con nombre. La configuración de proxy inverso/HTTPS y las políticas de respaldo o retención continúan pendientes.
+Para ejecutar los servicios en contenedores, después de crear `.env` use `docker compose up --build`. La aplicación quedará disponible en `http://127.0.0.1:8000/`. Docker Compose conserva PostgreSQL y reserva un volumen con nombre para futuros archivos de evidencia; el incremento actual solo registra referencias URL y no escribe en ese volumen. La configuración de proxy inverso/HTTPS y las políticas de respaldo o retención continúan pendientes.
 
 ## Migraciones y URL de PostgreSQL
 

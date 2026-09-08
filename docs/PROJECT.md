@@ -43,7 +43,7 @@ El **benchmark** inicial se construirá principalmente con compras históricas y
 
 ## 5. Dinámica de Cotización
 
-1. **Captura asistida y verificable:** El usuario registra la prospección realizada en fuentes como sitios web, directorios o referidos. Los artefactos concretos, como cotizaciones y comunicaciones con proveedores, se conservan como evidencias en la capacidad correspondiente.
+1. **Captura asistida y verificable:** El usuario registra la prospección realizada en fuentes como sitios web, directorios o referidos. Una evidencia puede respaldar directamente una prospección, incluso si no produjo proveedor u oferta, o una oferta comercial concreta. Los artefactos concretos, como cotizaciones y comunicaciones con proveedores, se conservan como evidencias en la capacidad correspondiente.
    La información comercial encontrada o recibida se registra como una oferta comercial vinculada a la prospección que identificó al proveedor. Una oferta funciona como alternativa candidata dentro de la necesidad y conserva el precio, su unidad y moneda sin normalización, la fecha de obtención y condiciones de texto libre. Puede haber varias ofertas para una misma prospección. El artefacto que sustenta una oferta no forma parte de este registro estructurado.
 2. **Solicitudes de cotización (RFQ):** La automatización completa de preparación, envío y recepción no pertenece al MVP.
 3. **Canales de comunicación:** Correo electrónico y WhatsApp son canales relevantes para evidencias y futuras interacciones, sin integración automática en el MVP.

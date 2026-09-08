@@ -20,9 +20,10 @@
 - Registro, listado y detalle de fuentes reutilizables y proveedores reutilizables, sin reglas de aprobación ni unicidad por nombre.
 - Registro manual de prospecciones desde una necesidad de compra mediante una fuente existente y, opcionalmente, un proveedor existente. Las prospecciones quedan visibles en el detalle de la necesidad.
 - Registro manual de múltiples ofertas comerciales por prospección con proveedor. Cada oferta conserva precio, unidad de precio y moneda sin normalización, fecha de obtención, descripción opcional y condiciones opcionales de texto libre.
-- Migraciones para `purchase_needs`, `sources`, `providers`, `prospecting_records` y `commercial_offers`, con sus claves foráneas e índices de relación.
+- Registro manual de referencias URL HTTP/HTTPS como evidencias de una prospección o de una oferta comercial. Cada evidencia pertenece exactamente a uno de esos destinos y conserva título, URL, fecha de captura o consulta y notas opcionales.
+- Migraciones para `purchase_needs`, `sources`, `providers`, `prospecting_records`, `commercial_offers` y `evidence_items`, con sus claves foráneas, restricciones e índices de relación.
 
-Una fuente representa el origen, canal o lugar consultado; no representa una evidencia concreta. Una oferta comercial es la alternativa candidata estructurada dentro de una necesidad, no el documento o comunicación que la sustenta. La gestión de evidencias todavía no está implementada.
+Una fuente representa el origen, canal o lugar consultado; no representa una evidencia concreta. Una oferta comercial es la alternativa candidata estructurada dentro de una necesidad, no el documento o comunicación que la sustenta. Las referencias URL de evidencia están implementadas; la carga y persistencia de archivos, incluidos PDF, imágenes y correos, continúa pendiente.
 
 ## Pendiente de validación humana
 

@@ -10,6 +10,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base
 
 if TYPE_CHECKING:
+    from app.evidence.models import Evidence
     from app.prospecting.models import ProspectingRecord
 
 
@@ -37,4 +38,8 @@ class CommercialOffer(Base):
 
     prospecting_record: Mapped["ProspectingRecord"] = relationship(
         back_populates="commercial_offers"
+    )
+    evidence_items: Mapped[list["Evidence"]] = relationship(
+        back_populates="commercial_offer",
+        order_by="(Evidence.captured_on.desc(), Evidence.created_at.desc())",
     )

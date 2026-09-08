@@ -15,7 +15,8 @@ Este documento propone una secuencia de evolución en tres horizontes (**Now**, 
   - [ ] Construcción inicial del *benchmark* principalmente con compras históricas y cotizaciones existentes; su formato y mecanismo de obtención están pendientes de confirmar.
 - [ ] **Captura Manual Asistida y Verificable:**
   - [x] Registro por usuarios de ofertas comerciales que funcionan como alternativas candidatas, con precios y condiciones de texto libre encontradas en las fuentes registradas.
-  - [ ] Asociación de evidencias y su trazabilidad (PDF, correos, WhatsApp, capturas, URLs, páginas web y otros documentos).
+  - [x] Asociación manual de referencias URL HTTP/HTTPS como evidencia de una prospección o de una oferta comercial.
+  - [ ] Carga y persistencia de archivos de evidencia (PDF, correos, WhatsApp, capturas, páginas web y otros documentos), con sus reglas operativas y de seguridad.
 - [ ] **Tablero Comparativo y Decisión:**
   - Vista comparativa de opciones encontradas frente a la línea base actual.
   - Registro de la decisión tomada por el comprador.
