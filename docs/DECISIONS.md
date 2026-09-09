@@ -76,7 +76,17 @@ Este documento registra decisiones aceptadas y pendientes explícitos. No convie
 - **Relaciones:** Una prospección y una oferta comercial pueden tener múltiples evidencias. Cada evidencia pertenece exactamente a una prospección o a una oferta mediante dos claves foráneas opcionales y una restricción XOR; nunca pertenece a ambas ni queda sin destino. Una evidencia de oferta deriva la prospección, fuente, proveedor y necesidad por las relaciones existentes.
 - **Captura:** Cada evidencia conserva título, URL absoluta HTTP/HTTPS, fecha de captura o consulta, notas opcionales y fecha de creación. Las URLs no son únicas y se presentan por fecha de captura y creación descendentes.
 - **Seguridad:** El servidor valida sintaxis, esquema y host, pero no solicita, verifica, descarga ni previsualiza la URL.
-- **Alcance actual:** Creación y visualización contextual dentro de la necesidad. Carga, almacenamiento y descarga de archivos, tipos de evidencia, edición, eliminación, backup y retención permanecen pendientes.
+- **Alcance:** Creación y visualización contextual dentro de la necesidad. La representación mediante archivos fue ampliada posteriormente por ADR-013; edición, eliminación, backup y retención permanecen pendientes.
+
+### ADR-013: Archivos persistentes como representación de Evidence
+
+- **Estado:** Aceptada.
+- **Modelo:** Se amplía `Evidence`; no se crea una entidad ni un tipo de evidencia adicional. El XOR de destino permanece intacto y un segundo XOR exige exactamente una representación: URL, o archivo con `storage_key`, `original_filename`, `media_type` y `file_size` positivos completos.
+- **Formatos y límite:** Se acepta un PDF, PNG, JPG o JPEG por envío, con máximo de 20 MiB. La extensión debe coincidir con la firma inicial y el MIME se deriva del contenido, nunca del valor declarado por el cliente.
+- **Persistencia:** Backend único de filesystem local bajo `EVIDENCE_STORAGE_PATH`, montado sobre `evidence_data` en Docker Compose. La clave relativa se genera con UUID v4, prefijo y extensión normalizada. La copia es por chunks y la publicación es atómica sin sobrescritura; si falla el commit posterior se compensa eliminando el archivo.
+- **Descarga:** Solo mediante rutas contextuales que validan la jerarquía y el containment. Siempre usa attachment, `nosniff` y `private, no-store`; no hay preview ni exposición mediante `StaticFiles`.
+- **Seguridad y operación:** Sin autenticación/autorización, esta capacidad solo es apta para desarrollo o una red interna restringida y no para exposición pública. Los IDs jerárquicos no son autorización. La persistencia del volumen no resuelve backup ni retención.
+- **Alcance pendiente:** Autenticación, roles, HTTPS/proxy según despliegue, backup, retención, antivirus, checksum, otros formatos, previews, almacenamiento cloud, edición, reemplazo y eliminación.
 
 ---
 

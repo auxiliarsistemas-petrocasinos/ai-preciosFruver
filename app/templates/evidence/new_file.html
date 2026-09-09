@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Añadir referencia URL · ai-preciosFruver{% endblock %}
+{% block title %}Subir archivo de evidencia · ai-preciosFruver{% endblock %}
 
 {% block content %}
-  <h1>Añadir referencia URL</h1>
+  <h1>Subir archivo de evidencia</h1>
   <dl>
     <dt>Necesidad</dt><dd>{{ purchase_need.product_name }}</dd>
     <dt>Fuente</dt><dd><a href="/sources/{{ prospecting_record.source.id }}">{{ prospecting_record.source.name }}</a></dd>
@@ -26,15 +26,15 @@
     {% endif %}
   </dl>
 
-  <form method="post" action="{{ action }}">
+  <form method="post" action="{{ action }}" enctype="multipart/form-data">
     <label for="title">Título</label>
     <input id="title" name="title" required value="{{ values.get('title', '') }}">
     {% if errors.get('title') %}<p class="error">{{ errors['title'] }}</p>{% endif %}
 
-    <label for="url">URL de evidencia</label>
-    <input id="url" name="url" type="url" required value="{{ values.get('url', '') }}" aria-describedby="url-help">
-    {% if errors.get('url') %}<p class="error">{{ errors['url'] }}</p>{% endif %}
-    <p id="url-help">Use una dirección completa que comience por http:// o https://. Evite enlaces que contengan credenciales o tokens privados.</p>
+    <label for="file">Archivo</label>
+    <input id="file" name="file" type="file" required accept=".pdf,.png,.jpg,.jpeg,application/pdf,image/png,image/jpeg" aria-describedby="file-help">
+    {% if errors.get('file') %}<p class="error">{{ errors['file'] }}</p>{% endif %}
+    <p id="file-help">Un archivo PDF, PNG, JPG o JPEG de máximo 20 MiB. El archivo se descargará siempre como adjunto.</p>
 
     <label for="captured_on">Fecha de captura o consulta</label>
     <input id="captured_on" name="captured_on" type="date" required value="{{ values.get('captured_on', '') }}">
@@ -43,7 +43,7 @@
     <label for="notes">Notas</label>
     <textarea id="notes" name="notes">{{ values.get('notes', '') }}</textarea>
 
-    <button type="submit">Guardar evidencia</button>
+    <button type="submit">Guardar archivo de evidencia</button>
   </form>
   <p><a href="/purchase-needs/{{ purchase_need.id }}">Volver a la necesidad</a></p>
 {% endblock %}

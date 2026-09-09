@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Evidencia no encontrada · ai-preciosFruver{% endblock %}
+
+{% block content %}
+  <h1>Evidencia no encontrada</h1>
+  <p>La evidencia solicitada no existe en este contexto o no es un archivo descargable.</p>
+  <p><a href="/purchase-needs/{{ purchase_need.id }}">Volver a la necesidad</a></p>
+{% endblock %}

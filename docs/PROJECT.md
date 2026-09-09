@@ -43,7 +43,7 @@ El **benchmark** inicial se construirá principalmente con compras históricas y
 
 ## 5. Dinámica de Cotización
 
-1. **Captura asistida y verificable:** El usuario registra la prospección realizada en fuentes como sitios web, directorios o referidos. Una evidencia puede respaldar directamente una prospección, incluso si no produjo proveedor u oferta, o una oferta comercial concreta. Los artefactos concretos, como cotizaciones y comunicaciones con proveedores, se conservan como evidencias en la capacidad correspondiente.
+1. **Captura asistida y verificable:** El usuario registra la prospección realizada en fuentes como sitios web, directorios o referidos. Una evidencia puede respaldar directamente una prospección, incluso si no produjo proveedor u oferta, o una oferta comercial concreta. La capacidad implementada admite referencias URL o un archivo PDF, PNG o JPEG de hasta 20 MiB; otros artefactos y formatos permanecen pendientes.
    La información comercial encontrada o recibida se registra como una oferta comercial vinculada a la prospección que identificó al proveedor. Una oferta funciona como alternativa candidata dentro de la necesidad y conserva el precio, su unidad y moneda sin normalización, la fecha de obtención y condiciones de texto libre. Puede haber varias ofertas para una misma prospección. El artefacto que sustenta una oferta no forma parte de este registro estructurado.
 2. **Solicitudes de cotización (RFQ):** La automatización completa de preparación, envío y recepción no pertenece al MVP.
 3. **Canales de comunicación:** Correo electrónico y WhatsApp son canales relevantes para evidencias y futuras interacciones, sin integración automática en el MVP.
@@ -58,7 +58,7 @@ Como capacidad objetivo del sistema, se debe persistir:
 - **Historial de precios:** Registro de variaciones temporales por producto, variedad, proveedor y fecha para detectar estacionalidad y tendencias.
 - **Ficha de proveedores:** Directorio comercial con contactos, canales de comunicación, calificación de servicio, confiabilidad y tiempos promedio de entrega.
 - **Trazabilidad y auditoría de decisiones de compra:** Historial completo de solicitudes (quién solicitó, qué opciones arrojó la prospección, qué respuestas se obtuvieron y cuál fue la opción seleccionada). La emisión de órdenes de compra, pagos o integración contable no forma parte del alcance definido hasta ahora.
-- **Evidencias:** Metadatos y trazabilidad de cotizaciones PDF, correos, conversaciones o capturas de WhatsApp, capturas de pantalla, URLs, páginas web y otros documentos relacionados.
+- **Evidencias:** Metadatos y trazabilidad de URLs y archivos. Actualmente se persisten PDF, PNG y JPEG en filesystem local y se descargan como adjuntos; correos y otros formatos, antivirus, checksum, previews, backup, retención, edición y eliminación permanecen pendientes.
 
 ---
 
@@ -68,6 +68,7 @@ Como capacidad objetivo del sistema, se debe persistir:
 - **Entorno de desarrollo:** Máquina local del desarrollador.
 - **Entorno de producción interna:** Servidor propio (*on-premise*) donde Docker funciona correctamente. Sus especificaciones de hardware y sistema operativo siguen pendientes de confirmación.
 - **Interfaz de usuario:** Interfaz web empresarial limpia, sin fricción ni complejidades innecesarias para los operadores.
+- **Exposición actual:** Mientras no exista autenticación/autorización, la carga y descarga de archivos solo es apta para desarrollo o red interna restringida; la jerarquía de IDs no constituye autorización. HTTPS/proxy inverso queda sujeto al despliegue.
 
 ---
 

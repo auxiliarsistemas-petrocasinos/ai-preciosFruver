@@ -1,4 +1,5 @@
 from collections.abc import Generator
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -12,7 +13,7 @@ from app.main import app
 
 
 @pytest.fixture
-def client() -> Generator[TestClient, None, None]:
+def client(tmp_path: Path) -> Generator[TestClient, None, None]:
     engine = create_engine(
         "sqlite://",
         connect_args={"check_same_thread": False},
@@ -26,6 +27,7 @@ def client() -> Generator[TestClient, None, None]:
             yield session
 
     app.dependency_overrides[get_session] = override_get_session
+    app.state.evidence_storage_path = tmp_path / "evidence"
     with TestClient(app) as test_client:
         yield test_client
     app.dependency_overrides.clear()

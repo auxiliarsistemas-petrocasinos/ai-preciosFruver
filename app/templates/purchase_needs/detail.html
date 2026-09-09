@@ -34,7 +34,15 @@
             <ul>
               {% for evidence in record.evidence_items %}
                 <li>
-                  <a href="{{ evidence.url }}" target="_blank" rel="noopener noreferrer">{{ evidence.title }}</a>
+                  {% if evidence.url %}
+                    <a href="{{ evidence.url }}" target="_blank" rel="noopener noreferrer">{{ evidence.title }}</a>
+                  {% else %}
+                    <strong>{{ evidence.title }}</strong>
+                    — {{ evidence.original_filename }}
+                    — {{ evidence.media_type }}
+                    — {{ evidence.file_size }} bytes
+                    — <a href="/purchase-needs/{{ purchase_need.id }}/prospecting-records/{{ record.id }}/evidence/{{ evidence.id }}/download">Descargar archivo</a>
+                  {% endif %}
                   — capturada o consultada el {{ evidence.captured_on }}
                   {% if evidence.notes %}— {{ evidence.notes }}{% endif %}
                 </li>
@@ -44,7 +52,8 @@
             <p>No hay evidencias registradas para esta prospección.</p>
           {% endif %}
           <p>
-            <a href="/purchase-needs/{{ purchase_need.id }}/prospecting-records/{{ record.id }}/evidence/new">Añadir evidencia a la prospección</a>
+            <a href="/purchase-needs/{{ purchase_need.id }}/prospecting-records/{{ record.id }}/evidence/new">Añadir referencia URL</a>
+            — <a href="/purchase-needs/{{ purchase_need.id }}/prospecting-records/{{ record.id }}/evidence/files/new">Subir archivo</a>
           </p>
 
           {% if record.provider %}
@@ -62,7 +71,15 @@
                       <ul>
                         {% for evidence in offer.evidence_items %}
                           <li>
-                            <a href="{{ evidence.url }}" target="_blank" rel="noopener noreferrer">{{ evidence.title }}</a>
+                            {% if evidence.url %}
+                              <a href="{{ evidence.url }}" target="_blank" rel="noopener noreferrer">{{ evidence.title }}</a>
+                            {% else %}
+                              <strong>{{ evidence.title }}</strong>
+                              — {{ evidence.original_filename }}
+                              — {{ evidence.media_type }}
+                              — {{ evidence.file_size }} bytes
+                              — <a href="/purchase-needs/{{ purchase_need.id }}/prospecting-records/{{ record.id }}/commercial-offers/{{ offer.id }}/evidence/{{ evidence.id }}/download">Descargar archivo</a>
+                            {% endif %}
                             — capturada o consultada el {{ evidence.captured_on }}
                             {% if evidence.notes %}— {{ evidence.notes }}{% endif %}
                           </li>
@@ -72,7 +89,8 @@
                       <p>No hay evidencias registradas para esta oferta.</p>
                     {% endif %}
                     <p>
-                      <a href="/purchase-needs/{{ purchase_need.id }}/prospecting-records/{{ record.id }}/commercial-offers/{{ offer.id }}/evidence/new">Añadir evidencia a la oferta</a>
+                      <a href="/purchase-needs/{{ purchase_need.id }}/prospecting-records/{{ record.id }}/commercial-offers/{{ offer.id }}/evidence/new">Añadir referencia URL</a>
+                      — <a href="/purchase-needs/{{ purchase_need.id }}/prospecting-records/{{ record.id }}/commercial-offers/{{ offer.id }}/evidence/files/new">Subir archivo</a>
                     </p>
                   </li>
                 {% endfor %}

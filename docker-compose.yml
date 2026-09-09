@@ -5,10 +5,11 @@ services:
       - .env
     environment:
       DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-ai_precios_fruver}:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/${POSTGRES_DB:-ai_precios_fruver}
+      EVIDENCE_STORAGE_PATH: /var/lib/ai-precios-fruver/evidence
     ports:
       - "${PORT:-8000}:8000"
     volumes:
-      - evidence_data:${EVIDENCE_STORAGE_PATH:-/var/lib/ai-precios-fruver/evidence}
+      - evidence_data:/var/lib/ai-precios-fruver/evidence
     depends_on:
       db:
         condition: service_healthy
