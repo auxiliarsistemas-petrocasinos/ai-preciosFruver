@@ -16,7 +16,8 @@ Este documento propone una secuencia de evolución en tres horizontes (**Now**, 
 - [ ] **Captura Manual Asistida y Verificable:**
   - [x] Registro por usuarios de ofertas comerciales que funcionan como alternativas candidatas, con precios y condiciones de texto libre encontradas en las fuentes registradas.
   - [x] Asociación manual de referencias URL HTTP/HTTPS como evidencia de una prospección o de una oferta comercial.
-  - [ ] Carga y persistencia de archivos de evidencia (PDF, correos, WhatsApp, capturas, páginas web y otros documentos), con sus reglas operativas y de seguridad.
+  - [x] Carga y persistencia local de archivos PDF, PNG y JPEG de hasta 20 MiB, con descarga controlada exclusivamente como adjunto.
+  - [ ] Ampliación a otros formatos de evidencia, antivirus, checksum, previews, edición/eliminación y políticas operativas de backup y retención.
 - [ ] **Tablero Comparativo y Decisión:**
   - Vista comparativa de opciones encontradas frente a la línea base actual.
   - Registro de la decisión tomada por el comprador.
