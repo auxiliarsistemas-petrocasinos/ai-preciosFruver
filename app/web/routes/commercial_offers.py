@@ -9,6 +9,7 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
+from app.auth.security import validate_authenticated_csrf
 from app.commercial_offers.models import CommercialOffer
 from app.db.session import get_session
 from app.prospecting.models import ProspectingRecord
@@ -133,8 +134,10 @@ def commercial_offer_create(
     obtained_on: str = Form(""),
     offered_description: str = Form(""),
     conditions: str = Form(""),
+    csrf_token: str = Form("", alias="_csrf_token"),
     session: Session = Depends(get_session),
 ) -> Response:
+    validate_authenticated_csrf(request, csrf_token)
     purchase_need, prospecting_record, error_response = _resolve_context(
         request, session, purchase_need_id, prospecting_record_id
     )

@@ -5,6 +5,7 @@
 {% block content %}
   <h1>Registrar proveedor</h1>
   <form method="post" action="/providers">
+    <input type="hidden" name="_csrf_token" value="{{ request.state.current_session.csrf_token }}">
     <label for="name">Nombre</label>
     <input id="name" name="name" required value="{{ values.get('name', '') }}">
     {% if errors.get('name') %}<p class="error">{{ errors['name'] }}</p>{% endif %}

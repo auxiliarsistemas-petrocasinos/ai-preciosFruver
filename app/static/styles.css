@@ -8,6 +8,10 @@ body {
   margin: 0;
 }
 
+.inline-form {
+  display: inline;
+}
+
 main {
   max-width: 42rem;
   margin: 4rem auto;

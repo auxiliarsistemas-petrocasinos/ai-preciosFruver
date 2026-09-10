@@ -27,6 +27,7 @@
   </dl>
 
   <form method="post" action="{{ action }}">
+    <input type="hidden" name="_csrf_token" value="{{ request.state.current_session.csrf_token }}">
     <label for="title">Título</label>
     <input id="title" name="title" required value="{{ values.get('title', '') }}">
     {% if errors.get('title') %}<p class="error">{{ errors['title'] }}</p>{% endif %}

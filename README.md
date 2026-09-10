@@ -33,7 +33,7 @@ El diseño y alcance del sistema se encuentra detallado en la carpeta [`docs/`](
 
 ## 📌 Estado Actual
 
-Existe un incremento funcional del monolito: FastAPI, Jinja2, HTMX, configuración por entorno, Docker Compose con PostgreSQL y almacenamiento persistente de evidencias. Incluye persistencia síncrona y migraciones Alembic para registrar y consultar necesidades de compra, fuentes y proveedores, asociar prospecciones manuales a cada necesidad con proveedor opcional, capturar múltiples ofertas comerciales cuando la prospección identifica un proveedor y registrar evidencias URL o archivos PDF, PNG y JPEG para una prospección o una oferta.
+Existe un incremento funcional del monolito: FastAPI, Jinja2, HTMX, configuración por entorno, Docker Compose con PostgreSQL y almacenamiento persistente de evidencias. Incluye persistencia síncrona y migraciones Alembic para registrar y consultar necesidades de compra, fuentes y proveedores, asociar prospecciones manuales a cada necesidad con proveedor opcional, capturar múltiples ofertas comerciales cuando la prospección identifica un proveedor y registrar evidencias URL o archivos PDF, PNG y JPEG para una prospección o una oferta. Toda capacidad no pública está protegida por autenticación local, sesión revocable y CSRF.
 
 ## Ejecución local
 
@@ -42,14 +42,30 @@ Requiere Python 3.13 o superior.
 1. Cree el archivo de entorno: `cp .env.example .env`.
 2. En `.env`, sustituya `POSTGRES_PASSWORD` y mantenga `DATABASE_URL` coherente con esos valores.
 3. Cree y active un entorno virtual, e instale las dependencias de desarrollo: `python3 -m venv .venv`, `source .venv/bin/activate` y `python -m pip install -e '.[dev]'`.
-4. Cargue las variables y ejecute la aplicación: `set -a; source .env; set +a; uvicorn app.main:app --reload`.
-5. Abra `http://127.0.0.1:8000/` y pulse **Comprobar HTMX**. El estado técnico está disponible en `http://127.0.0.1:8000/health`.
+4. Cargue las variables: `set -a; source .env; set +a`.
+5. Ejecute `python -m alembic upgrade head` y cree el primer usuario con `python -m app.auth.cli create-user <username>`; la contraseña y su confirmación se solicitan de forma oculta.
+6. Inicie con `uvicorn app.main:app --reload`, abra `http://127.0.0.1:8000/` e inicie sesión. El estado técnico público está disponible en `http://127.0.0.1:8000/health`.
 
-Para ejecutar los servicios en contenedores, después de crear `.env` use `docker compose up --build`. La aplicación quedará disponible en `http://127.0.0.1:8000/`. Docker Compose conserva PostgreSQL y los archivos de evidencia en volúmenes con nombre separados. El servicio monta `evidence_data` y entrega a la aplicación exactamente la misma ruta interna, `/var/lib/ai-precios-fruver/evidence`.
+Para ejecutar los servicios en contenedores, después de crear `.env` use `docker compose up --build -d`, aplique migraciones con `docker compose exec app python -m alembic upgrade head` y cree el primer usuario con `docker compose exec app python -m app.auth.cli create-user <username>`. La aplicación quedará disponible en `http://127.0.0.1:8000/`. Docker Compose conserva PostgreSQL y los archivos de evidencia en volúmenes con nombre separados. El servicio monta `evidence_data` y entrega a la aplicación exactamente la misma ruta interna, `/var/lib/ai-precios-fruver/evidence`.
 
 Cada carga admite un solo PDF, PNG, JPG o JPEG de máximo 20 MiB. El servidor valida la extensión y la firma inicial, deriva el tipo de medio del contenido, genera una clave opaca y copia por bloques antes de publicar el archivo sin sobrescritura. La descarga pasa por rutas controladas y siempre responde como adjunto con `nosniff` y sin caché privada reutilizable.
 
-Un volumen persistente no es un backup. Las políticas de respaldo y retención, antivirus, checksum, previews, edición, reemplazo y eliminación continúan pendientes. Tampoco hay autenticación ni autorización en este incremento: la carga y descarga solo son aptas para desarrollo o una red interna restringida y no deben exponerse públicamente. La jerarquía de IDs de las rutas no es un control de acceso. HTTPS/proxy inverso sigue pendiente según el despliegue.
+Un volumen persistente no es un backup. Las políticas de respaldo y retención, antivirus, checksum, previews, edición, reemplazo y eliminación continúan pendientes. La jerarquía de IDs de las rutas no es un control de acceso; la autenticación global debe ejecutarse antes de acceder a datos o archivos.
+
+## Autenticación y operación segura
+
+Los usernames se almacenan en minúsculas después de eliminar espacios exteriores y las contraseñas se guardan únicamente como Argon2id. La cookie `ai_pf_session` contiene un token opaco; PostgreSQL conserva solo su SHA-256, el token CSRF de la sesión y una expiración absoluta de ocho horas. El logout, el cambio administrativo de contraseña y la desactivación revocan las sesiones correspondientes. Todo usuario local activo autenticado puede acceder provisionalmente a todas las capacidades actuales; la matriz de roles todavía no está implementada.
+
+La CLI administrativa disponible es:
+
+```bash
+python -m app.auth.cli create-user <username>
+python -m app.auth.cli set-password <username>
+python -m app.auth.cli deactivate-user <username>
+python -m app.auth.cli activate-user <username>
+```
+
+`APP_ORIGIN` es el origen exacto permitido para el login. `SESSION_COOKIE_SECURE=false` solo se acepta con HTTP en `localhost`, `127.0.0.1` o `::1`. Cualquier acceso compartido o desde otro equipo exige `APP_ORIGIN=https://...`, `SESSION_COOKIE_SECURE=true` y un proxy HTTPS. La autenticación no convierte HTTP en un transporte seguro; el proxy/HTTPS productivo sigue pendiente.
 
 ## Migraciones y URL de PostgreSQL
 

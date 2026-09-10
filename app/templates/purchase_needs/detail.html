@@ -112,6 +112,7 @@
   <h2>Registrar prospección</h2>
   {% if sources %}
     <form method="post" action="/purchase-needs/{{ purchase_need.id }}/prospecting-records">
+      <input type="hidden" name="_csrf_token" value="{{ request.state.current_session.csrf_token }}">
       <label for="source_id">Fuente</label>
       <select id="source_id" name="source_id" required>
         <option value="">Seleccione una fuente</option>

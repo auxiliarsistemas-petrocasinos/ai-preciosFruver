@@ -9,6 +9,7 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
+from app.auth.security import validate_authenticated_csrf
 from app.commercial_offers.models import CommercialOffer
 from app.db.session import get_session
 from app.prospecting.models import ProspectingRecord
@@ -100,8 +101,10 @@ def purchase_need_create(
     required_delivery_date: str = Form(""),
     destination_city: str = Form(""),
     destination_location: str = Form(""),
+    csrf_token: str = Form("", alias="_csrf_token"),
     session: Session = Depends(get_session),
 ) -> Response:
+    validate_authenticated_csrf(request, csrf_token)
     values = {
         "product_name": product_name,
         "variety": variety,
@@ -189,8 +192,10 @@ def prospecting_record_create(
     source_id: str = Form(""),
     provider_id: str = Form(""),
     notes: str = Form(""),
+    csrf_token: str = Form("", alias="_csrf_token"),
     session: Session = Depends(get_session),
 ) -> Response:
+    validate_authenticated_csrf(request, csrf_token)
     purchase_need = _purchase_need_with_prospecting(session, purchase_need_id)
     if purchase_need is None:
         return templates.TemplateResponse(

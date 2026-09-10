@@ -22,7 +22,9 @@ Este documento propone una secuencia de evolución en tres horizontes (**Now**, 
   - Vista comparativa de opciones encontradas frente a la línea base actual.
   - Registro de la decisión tomada por el comprador.
 - [ ] **Control de Acceso Básico:**
-  - Autenticación local y roles simples para TI administradora y el pequeño grupo operativo de compras; compras conserva la aprobación final.
+  - [x] Autenticación local, sesiones server-side revocables, CSRF, protección global de rutas y CLI administrativa mínima.
+  - [ ] Matriz y roles simples para TI administradora y el pequeño grupo operativo de compras; hasta definirlos, todos los usuarios activos autenticados comparten acceso.
+  - [ ] Hardening de despliegue: HTTPS/proxy, rate limiting robusto, auditoría, autoservicio/reset de contraseña y evaluación posterior de MFA o SSO/LDAP.
 
 ---
 
@@ -69,3 +71,4 @@ Este documento propone una secuencia de evolución en tres horizontes (**Now**, 
 4. **Cálculo y criterios de comparación:** La fórmula de costo puesto en bodega debe validarse con bodega y compras; también faltan los criterios de ordenamiento y las equivalencias/normalización.
 5. **Condiciones operativas:** ¿Qué fuentes están autorizadas y qué proveedor de correo, credenciales, consentimiento o revisión humana se requerirá antes de enviar contactos?
 6. **Datos e infraestructura:** ¿Cuál será el formato y mecanismo para obtener datos históricos, las especificaciones del servidor y la política de backup/retención?
+7. **Autorización y hardening:** ¿Cuál será la matriz de roles y qué proxy, terminación HTTPS, rate limiting y mecanismos adicionales de identidad exige el despliegue?

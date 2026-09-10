@@ -11,6 +11,7 @@
   </dl>
 
   <form method="post" action="/purchase-needs/{{ purchase_need.id }}/prospecting-records/{{ prospecting_record.id }}/commercial-offers">
+    <input type="hidden" name="_csrf_token" value="{{ request.state.current_session.csrf_token }}">
     <label for="price_amount">Precio</label>
     <input id="price_amount" name="price_amount" type="number" step="any" required value="{{ values.get('price_amount', '') }}">
     {% if errors.get('price_amount') %}<p class="error">{{ errors['price_amount'] }}</p>{% endif %}

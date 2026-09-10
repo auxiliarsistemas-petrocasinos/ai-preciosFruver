@@ -6,6 +6,8 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 from app.api.routes.health import router as health_router
+from app.auth.middleware import AuthenticationMiddleware
+from app.auth.routes import router as auth_router
 from app.core.config import settings
 from app.evidence.upload_limit import EvidenceUploadBodyLimitMiddleware
 from app.web.routes.commercial_offers import router as commercial_offers_router
@@ -20,8 +22,11 @@ def create_app() -> FastAPI:
     app = FastAPI(title=settings.app_name, debug=settings.debug)
     app.state.evidence_storage_path = Path(settings.evidence_storage_path)
     app.add_middleware(EvidenceUploadBodyLimitMiddleware)
+    # Starlette ejecuta primero el último middleware registrado: auth envuelve el límite.
+    app.add_middleware(AuthenticationMiddleware)
     app.mount("/static", StaticFiles(directory="app/static"), name="static")
     app.include_router(health_router)
+    app.include_router(auth_router)
     app.include_router(web_router)
     app.include_router(purchase_needs_router)
     app.include_router(commercial_offers_router)

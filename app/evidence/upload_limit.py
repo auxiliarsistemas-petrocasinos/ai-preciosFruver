@@ -7,7 +7,7 @@ from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
 from app.evidence.storage import MAX_FILE_SIZE
 
-# Deja espacio acotado para boundary y los tres campos de texto del multipart.
+# Deja espacio acotado para boundary y los cuatro campos de texto del multipart (incluido CSRF).
 MAX_UPLOAD_REQUEST_SIZE = MAX_FILE_SIZE + 64 * 1024
 
 _UPLOAD_PATH = re.compile(

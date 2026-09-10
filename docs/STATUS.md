@@ -23,11 +23,15 @@
 - Registro manual de referencias URL HTTP/HTTPS como evidencias de una prospección o de una oferta comercial. Cada evidencia pertenece exactamente a uno de esos destinos y conserva título, URL, fecha de captura o consulta y notas opcionales.
 - Carga manual de un archivo PDF, PNG o JPEG por envío, de máximo 20 MiB, como representación alternativa de `Evidence`. Conserva nombre original solo como metadata, MIME derivado de firma, tamaño real y clave opaca única; el archivo se publica atómicamente en filesystem local bajo `EVIDENCE_STORAGE_PATH`.
 - Descarga contextual controlada, siempre como adjunto, con `X-Content-Type-Options: nosniff` y `Cache-Control: private, no-store`. Los archivos viven en el volumen `evidence_data`, cuya persistencia no constituye backup.
-- Migraciones para `purchase_needs`, `sources`, `providers`, `prospecting_records`, `commercial_offers` y `evidence_items`, con sus claves foráneas, restricciones e índices de relación. `Evidence` conserva intacto el XOR de destino y añade un XOR entre URL y archivo completo.
+- Autenticación local por username canónico y contraseña Argon2id, con CLI para crear, activar, desactivar y cambiar contraseña de usuarios.
+- Sesiones opacas server-side en PostgreSQL, revocables y con expiración absoluta de ocho horas. La cookie conserva el token crudo y la base de datos únicamente su SHA-256.
+- Protección global fail-closed de rutas, incluyendo documentación automática y descargas; solo login, health y estáticos son públicos. HTMX anónimo recibe `HX-Redirect`.
+- CSRF mediante synchronizer token por sesión para todos los POST autenticados y comprobación exacta de `Origin`/`Referer` para login. Todos los formularios preservan su token, incluidos uploads.
+- Migraciones para `purchase_needs`, `sources`, `providers`, `prospecting_records`, `commercial_offers`, `evidence_items`, `users` y `user_sessions`, con sus claves foráneas, restricciones e índices. `Evidence` conserva intactos sus XOR de destino y representación.
 
 Una fuente representa el origen, canal o lugar consultado; no representa una evidencia concreta. Una oferta comercial es la alternativa candidata estructurada dentro de una necesidad, no el documento o comunicación que la sustenta. Las evidencias URL y los archivos PDF/PNG/JPEG están implementados. Otros formatos, antivirus, checksum, previews, backup, retención y corrección de archivos erróneos mediante edición, reemplazo o eliminación continúan pendientes.
 
-La aplicación aún no tiene autenticación ni autorización. La carga y descarga de archivos son aptas para desarrollo o una red interna restringida, no para exposición pública; conocer o recorrer la jerarquía de IDs no concede autorización. HTTPS/proxy inverso también sigue pendiente según el despliegue.
+Todo usuario local activo autenticado tiene provisionalmente acceso a todas las capacidades actuales. Esto no implementa roles ni sustituye la futura matriz de autorización. La autenticación no convierte HTTP en transporte seguro: el acceso compartido requiere HTTPS y cookie `Secure`; el proxy inverso sigue pendiente.
 
 ## Pendiente de validación humana
 
@@ -38,6 +42,7 @@ La aplicación aún no tiene autenticación ni autorización. La carga y descarg
 - **Especificaciones del servidor:** hardware, sistema operativo y condiciones de despliegue.
 - **Política de backup/retención:** respaldo, recuperación y retención de datos y evidencias.
 - Nombres y permisos concretos de los roles simples; vigencia de cotizaciones y criterios adicionales de evaluación.
+- Hardening de acceso: proxy/HTTPS, rate limiting robusto, MFA, SSO/LDAP, recuperación o cambio propio de contraseña, administración web de usuarios, auditoría y `created_by`.
 
 ## Fuera del MVP
 
