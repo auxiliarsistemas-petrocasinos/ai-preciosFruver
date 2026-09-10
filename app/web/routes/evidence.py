@@ -12,6 +12,7 @@ from starlette.concurrency import run_in_threadpool
 from starlette.datastructures import FormData, UploadFile
 from starlette.exceptions import HTTPException
 
+from app.auth.security import validate_authenticated_csrf
 from app.commercial_offers.models import CommercialOffer
 from app.db.session import get_session
 from app.evidence.models import Evidence
@@ -220,7 +221,8 @@ async def _create_file_evidence(
     commercial_offer: CommercialOffer | None = None,
 ) -> Response:
     try:
-        async with request.form(max_files=1, max_fields=3, max_part_size=64 * 1024) as form:
+        async with request.form(max_files=1, max_fields=4, max_part_size=64 * 1024) as form:
+            validate_authenticated_csrf(request, _text_field(form, "_csrf_token"))
             title = _text_field(form, "title")
             captured_on = _text_field(form, "captured_on")
             notes = _text_field(form, "notes")
@@ -460,8 +462,10 @@ def prospecting_evidence_create(
     url: str = Form(""),
     captured_on: str = Form(""),
     notes: str = Form(""),
+    csrf_token: str = Form("", alias="_csrf_token"),
     session: Session = Depends(get_session),
 ) -> Response:
+    validate_authenticated_csrf(request, csrf_token)
     purchase_need, prospecting_record, error_response = _resolve_prospecting_context(
         request, session, purchase_need_id, prospecting_record_id
     )
@@ -534,8 +538,10 @@ def commercial_offer_evidence_create(
     url: str = Form(""),
     captured_on: str = Form(""),
     notes: str = Form(""),
+    csrf_token: str = Form("", alias="_csrf_token"),
     session: Session = Depends(get_session),
 ) -> Response:
+    validate_authenticated_csrf(request, csrf_token)
     purchase_need, prospecting_record, commercial_offer, error_response = _resolve_offer_context(
         request,
         session,

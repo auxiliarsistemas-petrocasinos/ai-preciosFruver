@@ -6,6 +6,7 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.auth.security import validate_authenticated_csrf
 from app.db.session import get_session
 from app.sources.models import Source
 
@@ -36,8 +37,10 @@ def source_create(
     name: str = Form(""),
     reference: str = Form(""),
     notes: str = Form(""),
+    csrf_token: str = Form("", alias="_csrf_token"),
     session: Session = Depends(get_session),
 ) -> Response:
+    validate_authenticated_csrf(request, csrf_token)
     values = {"name": name, "reference": reference, "notes": notes}
     cleaned_name = name.strip()
     if not cleaned_name:

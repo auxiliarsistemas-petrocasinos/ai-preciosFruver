@@ -9,11 +9,18 @@
   </head>
   <body>
     <main>
-      <nav aria-label="Navegación principal">
-        <a href="/purchase-needs">Necesidades de compra</a>
-        <a href="/sources">Fuentes</a>
-        <a href="/providers">Proveedores</a>
-      </nav>
+      {% if request.state.current_user %}
+        <nav aria-label="Navegación principal">
+          <a href="/purchase-needs">Necesidades de compra</a>
+          <a href="/sources">Fuentes</a>
+          <a href="/providers">Proveedores</a>
+          <span>Usuario: {{ request.state.current_user.username }}</span>
+          <form method="post" action="/logout" class="inline-form">
+            <input type="hidden" name="_csrf_token" value="{{ request.state.current_session.csrf_token }}">
+            <button type="submit">Cerrar sesión</button>
+          </form>
+        </nav>
+      {% endif %}
       {% block content %}{% endblock %}
     </main>
   </body>

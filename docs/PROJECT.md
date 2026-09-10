@@ -14,7 +14,7 @@ La empresa requiere reducir los costos de adquisición de materias primas y prod
 
 - **Destinatarios:** Personal de TI para administración y un pequeño grupo del área de compras como usuarios operativos. Compras evalúa y aprueba finalmente las alternativas.
 - **Volumen inicial:** Aproximadamente 5 usuarios iniciales. La concurrencia esperada no se ha definido.
-- **Control de acceso:** Sistema con autenticación y roles diferenciados (por ejemplo: roles con capacidad de solicitar/cotizar y roles con capacidad de aprobar o administrar usuarios y proveedores).
+- **Control de acceso:** La autenticación local con sesiones revocables está implementada. Provisionalmente, todo usuario local activo autenticado accede a todas las capacidades actuales. La matriz y los roles diferenciados permanecen pendientes.
 
 ---
 
@@ -68,7 +68,7 @@ Como capacidad objetivo del sistema, se debe persistir:
 - **Entorno de desarrollo:** Máquina local del desarrollador.
 - **Entorno de producción interna:** Servidor propio (*on-premise*) donde Docker funciona correctamente. Sus especificaciones de hardware y sistema operativo siguen pendientes de confirmación.
 - **Interfaz de usuario:** Interfaz web empresarial limpia, sin fricción ni complejidades innecesarias para los operadores.
-- **Exposición actual:** Mientras no exista autenticación/autorización, la carga y descarga de archivos solo es apta para desarrollo o red interna restringida; la jerarquía de IDs no constituye autorización. HTTPS/proxy inverso queda sujeto al despliegue.
+- **Exposición actual:** Las rutas de negocio y las descargas requieren una sesión local válida; la jerarquía de IDs no constituye autorización. La autenticación no protege el transporte: cualquier acceso compartido requiere HTTPS, cookie `Secure` y el proxy inverso pendiente de desplegar.
 
 ---
 
@@ -83,5 +83,5 @@ Como capacidad objetivo del sistema, se debe persistir:
 4. **Fuentes iniciales:** Falta acordar cuáles fuentes potenciales se registrarán y utilizarán primero.
 5. **Especificaciones del servidor:** Faltan hardware, sistema operativo y demás condiciones de despliegue.
 6. **Política de backup/retención:** Falta definir respaldo, recuperación y retención de datos y evidencias.
-7. **Matriz precisa de roles:** Faltan los nombres y capacidades exactas de los roles simples.
+7. **Matriz precisa de roles:** Faltan los nombres y capacidades exactas de los roles simples. Hasta resolverla, todo usuario activo autenticado tiene el mismo acceso.
 8. **Reglas de comparación:** Faltan vigencia de cotizaciones y criterios adicionales de evaluación y ordenamiento.

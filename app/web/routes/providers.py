@@ -6,6 +6,7 @@ from fastapi.templating import Jinja2Templates
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.auth.security import validate_authenticated_csrf
 from app.db.session import get_session
 from app.providers.models import Provider
 
@@ -39,8 +40,10 @@ def provider_create(
     phone: str = Form(""),
     location: str = Form(""),
     notes: str = Form(""),
+    csrf_token: str = Form("", alias="_csrf_token"),
     session: Session = Depends(get_session),
 ) -> Response:
+    validate_authenticated_csrf(request, csrf_token)
     values = {
         "name": name,
         "contact_name": contact_name,

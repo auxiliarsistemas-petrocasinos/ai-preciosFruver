@@ -5,6 +5,7 @@
 {% block content %}
   <h1>Registrar necesidad de compra</h1>
   <form method="post" action="/purchase-needs" data-purchase-need-form>
+    <input type="hidden" name="_csrf_token" value="{{ request.state.current_session.csrf_token }}">
     <label for="product_name">Producto o materia prima</label>
     <input id="product_name" name="product_name" required value="{{ values.get('product_name', '') }}">
     {% if errors.get('product_name') %}<p class="error">{{ errors['product_name'] }}</p>{% endif %}

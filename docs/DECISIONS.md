@@ -86,7 +86,17 @@ Este documento registra decisiones aceptadas y pendientes explícitos. No convie
 - **Persistencia:** Backend único de filesystem local bajo `EVIDENCE_STORAGE_PATH`, montado sobre `evidence_data` en Docker Compose. La clave relativa se genera con UUID v4, prefijo y extensión normalizada. La copia es por chunks y la publicación es atómica sin sobrescritura; si falla el commit posterior se compensa eliminando el archivo.
 - **Descarga:** Solo mediante rutas contextuales que validan la jerarquía y el containment. Siempre usa attachment, `nosniff` y `private, no-store`; no hay preview ni exposición mediante `StaticFiles`.
 - **Seguridad y operación:** Sin autenticación/autorización, esta capacidad solo es apta para desarrollo o una red interna restringida y no para exposición pública. Los IDs jerárquicos no son autorización. La persistencia del volumen no resuelve backup ni retención.
-- **Alcance pendiente:** Autenticación, roles, HTTPS/proxy según despliegue, backup, retención, antivirus, checksum, otros formatos, previews, almacenamiento cloud, edición, reemplazo y eliminación.
+- **Alcance pendiente:** Roles, HTTPS/proxy según despliegue, backup, retención, antivirus, checksum, otros formatos, previews, almacenamiento cloud, edición, reemplazo y eliminación. La autenticación fue incorporada posteriormente por ADR-014.
+
+### ADR-014: Autenticación local y sesiones revocables
+
+- **Estado:** Aceptada e implementada.
+- **Identidad:** `User` usa un username único canónico (`strip` y minúsculas) y contraseña de 15 a 128 caracteres almacenada únicamente con Argon2id. No contiene email, rol ni atributos administrativos.
+- **Sesión:** El navegador recibe una cookie de sesión `ai_pf_session` con token opaco CSPRNG; PostgreSQL almacena solo SHA-256 del token, un token CSRF y expiración absoluta de ocho horas. No se usan JWT, remember-me ni timeout inactivo.
+- **Revocación:** Logout elimina la sesión presentada. La CLI mínima permite crear, activar y desactivar usuarios o cambiar contraseñas; cambiar contraseña y desactivar revocan todas las sesiones del usuario.
+- **Protección:** Un middleware global fail-closed protege todas las rutas excepto `GET/POST /login`, `GET /health` y `/static`. Se ejecuta antes del límite de upload. Los POST autenticados exigen synchronizer token; el login exige `Origin` exacto o `Referer` del mismo origen contra `APP_ORIGIN`.
+- **Cookie y transporte:** La cookie es `HttpOnly`, `SameSite=Lax`, `Path=/`, sin `Domain`, `Max-Age` ni `Expires`. `Secure=false` solo se admite con HTTP loopback; cualquier acceso compartido requiere HTTPS y `Secure=true`. La autenticación no cifra HTTP y el proxy HTTPS continúa pendiente.
+- **Autorización provisional:** Todo usuario local activo autenticado puede acceder a todas las capacidades actuales. No se implementan roles, permisos, administración web, MFA, SSO/LDAP, rate limiting, auditoría ni `created_by`; son decisiones posteriores.
 
 ---
 
